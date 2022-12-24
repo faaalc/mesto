@@ -1,5 +1,4 @@
 const popupEdit = {
-  root: document.querySelector('.root'),
   popup: document.querySelector('.popup'),
   openBtn: document.querySelector('.profile__edit-button'),
   closeBtn: document.querySelector('.popup__close'),
@@ -18,7 +17,6 @@ const open = () => {
 const close = e => {
   e.preventDefault()
   popupEdit.popup.classList.remove('popup_opened')
-  popupEdit.root.style.overflow = 'auto'
 }
 const save = e => {
   e.preventDefault()
