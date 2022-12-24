@@ -6,3 +6,8 @@
   background-color: var(--header-line);
   margin: 40px 0;
 }
+@media screen and (max-width: 767px) {
+  .header::after {
+    margin: 28px 0 42px;
+  }
+}

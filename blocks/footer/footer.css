@@ -1,7 +1,13 @@
-.footer {
+.footer__copyright {
   color: var(--footer-text-color);
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   margin-top: 67px;
+}
+@media screen and (max-width: 767px) {
+  .footer__copyright {
+    margin-left: 19px;
+    margin-top: 48px;
+  }
 }

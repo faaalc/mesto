@@ -7,11 +7,17 @@
   justify-content: center;
   margin-top: 50px;
 }
-/*@media screen and (max-width: 1023px){*/
-/*  .gallery {*/
-/*    grid-template-columns: repeat(2, fit-content(282px));*/
-/*  }*/
-/*}*/
+@media screen and (max-width: 1023px){
+  .gallery {
+    grid-template-columns: repeat(2, fit-content(282px));
+  }
+}
+@media screen and (max-width: 767px) {
+  .gallery {
+    grid-template-columns: fit-content(282px);
+    margin-top: 36px;
+  }
+}
 .gallery__item {
   border-radius: 10px;
   overflow: hidden;
