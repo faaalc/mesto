@@ -13,7 +13,6 @@
 
 .popup__container {
   width: 430px;
-  height: 330px;
   background-color: #ffffff;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
@@ -70,9 +69,12 @@
   margin-top: 48px;
   transition: var(--button-transition-opacity);
 }
-.popup__save:hover {
-  opacity: .8;
+@media screen and (min-width: 1024px) {
+  .popup__save:hover {
+    opacity: .8;
+  }
 }
+
 @media screen and (max-width: 767px) {
   .popup__save {
     padding: 14px 82px;
@@ -92,8 +94,11 @@
   right: -40px;
   transition: var(--button-transition-opacity);
 }
-.popup__close:hover {
-  opacity: var(--button-hover-opacity);
+
+@media screen and (min-width: 1024px) {
+  .popup__close:hover {
+    opacity: var(--button-hover-opacity);
+  }
 }
 @media screen and (max-width: 767px) {
   .popup__close {

@@ -68,8 +68,10 @@
   right: -40px;
   transition: var(--button-transition-opacity);
 }
-.profile__edit-button:hover {
-  opacity: var(--button-hover-opacity);
+@media screen and (min-width: 1024px) {
+  .profile__edit-button:hover {
+    opacity: var(--button-hover-opacity);
+  }
 }
 @media screen and (max-width: 767px) {
   .profile__edit-button {
@@ -90,9 +92,12 @@
   background-repeat: no-repeat;
   transition: var(--button-transition-opacity);
 }
-.profile__add-button:hover {
-  opacity: var(--button-hover-opacity);
+@media screen and (min-width: 1024px) {
+  .profile__add-button:hover {
+    opacity: var(--button-hover-opacity);
+  }
 }
+
 @media screen and (max-width: 1023px) {
   .profile__add-button {
     margin: 36px auto 0;

@@ -60,9 +60,12 @@
   background-image: url("../../images/like.svg");
   transition: var(--button-transition-opacity), var(--button-transition-bgi);
 }
-.gallery__like-button:hover {
-  opacity: var(--button-hover-opacity);
+@media screen and (min-width: 1024px) {
+  .gallery__like-button:hover {
+    opacity: var(--button-hover-opacity);
+  }
 }
+
 .gallery__like-button:active {
   opacity: 1;
   background-image: url("../../images/like-active.svg");
