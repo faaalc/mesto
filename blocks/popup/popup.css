@@ -110,6 +110,6 @@
   }
 }
 
-.popup__opened {
+.popup_opened {
   display: flex;
 }
