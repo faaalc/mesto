@@ -7,7 +7,6 @@
   font-family: 'Inter', Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--main-text-color);
-  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
