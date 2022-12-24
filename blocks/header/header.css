@@ -1,0 +1,8 @@
+.header::after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 1px;
+  background-color: var(--header-line);
+  margin: 40px 0;
+}

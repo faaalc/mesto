@@ -1,0 +1,7 @@
+.footer {
+  color: var(--footer-text-color);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 67px;
+}

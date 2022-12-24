@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="pages/index.css">
+  <title>Mesto</title>
+</head>
+<body class="root">
+    <header class="header">
+      <img src="images/logo.svg" alt="Логотип" class="logo">
+    </header>
+    <main class="main">
+      <section class="profile" aria-label="Профиль пользователя">
+        <div class="profile__avatar"></div>
+        <div class="profile__info">
+          <p class="profile__name">Данил Непомнящий</p>
+          <p class="profile__description">Веб-разработчик</p>
+          <button class="button profile__edit-button"></button>
+        </div>
+        <button class="button profile__add-button"></button>
+      </section>
+      <section class="gallery" aria-label="Галерея">
+        <div class="gallery__item">
+          <img src="images/sochi-photo.jpg" alt="Фотография" class="gallery__photo">
+          <div class="gallery__description">
+            <p class="gallery__location">Сочи</p>
+            <button class="gallery__like-button"></button>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/piter-1.jpg" alt="Фотография" class="gallery__photo">
+          <div class="gallery__description">
+            <p class="gallery__location">Санкт-Петербург</p>
+            <button class="gallery__like-button"></button>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/piter-2.jpg" alt="Фотография" class="gallery__photo">
+          <div class="gallery__description">
+            <p class="gallery__location">Санкт-Петербург</p>
+            <button class="gallery__like-button"></button>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/sochi-1.jpg" alt="Фотография" class="gallery__photo">
+          <div class="gallery__description">
+            <p class="gallery__location">Сочи</p>
+            <button class="gallery__like-button"></button>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/sochi-2.jpg" alt="Фотография" class="gallery__photo">
+          <div class="gallery__description">
+            <p class="gallery__location">Сочи</p>
+            <button class="gallery__like-button"></button>
+          </div>
+        </div>
+        <div class="gallery__item">
+          <img src="images/malta.jpg" alt="Фотография" class="gallery__photo">
+          <div class="gallery__description">
+            <p class="gallery__location">Мальта</p>
+            <button class="gallery__like-button"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+    </footer>
+    <div class="popup">
+      <form class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="input-text popup__input" name="popup-name" placeholder="Имя">
+        <input type="text" class="input-text popup__input" name="popup-description" placeholder="О себе">
+        <button type="submit" class="button popup__save">Сохранить</button>
+        <button class="button popup__close"></button>
+      </form>
+    </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
