@@ -1,14 +1,14 @@
-.gallery__like-button {
+.card__like-button {
   width: 22px;
   height: 19px;
   background-image: url("../../../images/like.svg");
   transition: var(--button-transition-opacity), var(--button-transition-bgi);
 }
-.gallery__like-button:hover {
+.card__like-button:hover {
   opacity: .5;
 }
 
-.gallery__like-button:active {
+.card__like-button:active {
   opacity: 1;
   background-image: url("../../../images/like-active.svg");
 }

@@ -13,55 +13,55 @@
     </header>
     <main class="main">
       <section class="profile">
-        <div class="profile__avatar"></div>
+        <img class="profile__avatar" src="images/avatar.jpg" alt="Аватарка">
         <div class="profile__info">
           <h1 class="profile__name">Данил Непомнящий</h1>
+          <button class="button profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
           <p class="profile__description">Веб-разработчик</p>
-          <button class="button profile__edit-button"></button>
         </div>
-        <button class="button profile__add-button"></button>
+        <button class="button profile__add-button" type="button" aria-label="Добавить пост"></button>
       </section>
       <section class="gallery">
-        <div class="gallery__item">
-          <img src="images/sochi-photo.jpg" alt="Сочи горы" class="gallery__photo">
-          <div class="gallery__description">
-            <h2 class="gallery__location">Сочи</h2>
-            <button class="button gallery__like-button"></button>
+        <div class="card">
+          <img src="images/sochi-photo.jpg" alt="Сочи горы" class="card__photo">
+          <div class="card__description">
+            <h2 class="card__location">Сочи</h2>
+            <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
           </div>
         </div>
-        <div class="gallery__item">
-          <img src="images/piter-1.jpg" alt="Санкт-Петербург дома" class="gallery__photo">
-          <div class="gallery__description">
-            <h2 class="gallery__location">Санкт-Петербург</h2>
-            <button class="button gallery__like-button"></button>
+        <div class="card">
+          <img src="images/piter-1.jpg" alt="Санкт-Петербург дома" class="card__photo">
+          <div class="card__description">
+            <h2 class="card__location">Санкт-Петербург</h2>
+            <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
           </div>
         </div>
-        <div class="gallery__item">
-          <img src="images/piter-2.jpg" alt="Санкт-Петербург двор" class="gallery__photo">
-          <div class="gallery__description">
-            <h2 class="gallery__location">Санкт-Петербург</h2>
-            <button class="button gallery__like-button"></button>
+        <div class="card">
+          <img src="images/piter-2.jpg" alt="Санкт-Петербург двор" class="card__photo">
+          <div class="card__description">
+            <h2 class="card__location">Санкт-Петербург</h2>
+            <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
           </div>
         </div>
-        <div class="gallery__item">
-          <img src="images/sochi-1.jpg" alt="Сочи деревья в облаках" class="gallery__photo">
-          <div class="gallery__description">
-            <h2 class="gallery__location">Сочи</h2>
-            <button class="button gallery__like-button"></button>
+        <div class="card">
+          <img src="images/sochi-1.jpg" alt="Сочи деревья в облаках" class="card__photo">
+          <div class="card__description">
+            <h2 class="card__location">Сочи</h2>
+            <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
           </div>
         </div>
-        <div class="gallery__item">
-          <img src="images/sochi-2.jpg" alt="Сочи горы в тумане" class="gallery__photo">
-          <div class="gallery__description">
-            <h2 class="gallery__location">Сочи</h2>
-            <button class="button gallery__like-button"></button>
+        <div class="card">
+          <img src="images/sochi-2.jpg" alt="Сочи горы в тумане" class="card__photo">
+          <div class="card__description">
+            <h2 class="card__location">Сочи</h2>
+            <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
           </div>
         </div>
-        <div class="gallery__item">
-          <img src="images/malta.jpg" alt="Мальта переулок" class="gallery__photo">
-          <div class="gallery__description">
-            <h2 class="gallery__location">Мальта</h2>
-            <button class="button gallery__like-button"></button>
+        <div class="card">
+          <img src="images/malta.jpg" alt="Мальта переулок" class="card__photo">
+          <div class="card__description">
+            <h2 class="card__location">Мальта</h2>
+            <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
           </div>
         </div>
       </section>
@@ -70,13 +70,15 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
     <div class="popup">
-      <form class="popup__container">
+      <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="input-text popup__input" name="popup-name" placeholder="Имя">
-        <input type="text" class="input-text popup__input" name="popup-description" placeholder="О себе">
-        <button type="submit" class="button popup__save">Сохранить</button>
-        <button class="button popup__close"></button>
-      </form>
+        <form method="post" action="" name="edit-description" class="popup__form popup__form_edit-description">
+          <input type="text" class="input-text popup__input popup__input_name" placeholder="Имя">
+          <input type="text" class="input-text popup__input popup__input_description" placeholder="О себе">
+          <button class="button popup__save" type="submit" aria-label="Сохранить изменения">Сохранить</button>
+        </form>
+        <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
+      </div>
     </div>
   <script src="js/index.js"></script>
 </body>

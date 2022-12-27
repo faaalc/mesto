@@ -3,7 +3,7 @@
   content: '';
   width: 100%;
   height: 1px;
-  background-color: var(--header-line);
+  background-color: var(--header-line-color);
   margin: 40px 0;
 }
 @media screen and (max-width: 767px) {
