@@ -8,10 +8,8 @@
   margin-top: 48px;
   transition: var(--button-transition-opacity);
 }
-@media screen and (min-width: 1024px) {
-  .popup__save:hover {
-    opacity: .8;
-  }
+.popup__save:hover {
+  opacity: .8;
 }
 
 @media screen and (max-width: 767px) {

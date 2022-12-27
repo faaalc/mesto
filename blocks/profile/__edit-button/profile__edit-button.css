@@ -7,11 +7,10 @@
   right: -40px;
   transition: var(--button-transition-opacity);
 }
-@media screen and (min-width: 1024px) {
-  .profile__edit-button:hover {
-    opacity: var(--button-hover-opacity);
-  }
+.profile__edit-button:hover {
+  opacity: var(--button-hover-opacity);
 }
+
 @media screen and (max-width: 767px) {
   .profile__edit-button {
     width: 18px;

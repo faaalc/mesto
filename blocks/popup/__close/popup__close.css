@@ -8,11 +8,10 @@
   transition: var(--button-transition-opacity);
 }
 
-@media screen and (min-width: 1024px) {
-  .popup__close:hover {
-    opacity: var(--button-hover-opacity);
-  }
+.popup__close:hover {
+  opacity: var(--button-hover-opacity);
 }
+
 @media screen and (max-width: 767px) {
   .popup__close {
     width: 20px;

@@ -4,10 +4,8 @@
   background-image: url("../../../images/like.svg");
   transition: var(--button-transition-opacity), var(--button-transition-bgi);
 }
-@media screen and (min-width: 1024px) {
-  .gallery__like-button:hover {
-    opacity: var(--button-hover-opacity);
-  }
+.gallery__like-button:hover {
+  opacity: .5;
 }
 
 .gallery__like-button:active {
