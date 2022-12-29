@@ -8,12 +8,10 @@
   flex-direction: column;
   position: relative;
   box-sizing: border-box;
-  margin-bottom: 70px;
 }
 @media screen and (max-width: 767px) {
   .popup__container {
     width: 282px;
     padding: 22px 25px;
-    margin-bottom: 280px;
   }
 }
