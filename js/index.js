@@ -3,8 +3,8 @@ const popupEdit = {
   form: document.querySelector('.popup__form_edit-description'),
   openBtn: document.querySelector('.profile__edit-button'),
   closeBtn: document.querySelector('.popup__close'),
-  nameInput: document.querySelector('.popup__input_name'),
-  descriptionInput: document.querySelector('.popup__input_description'),
+  nameInput: document.querySelector('.popup__input_type_name'),
+  descriptionInput: document.querySelector('.popup__input_type_description'),
   profileName: document.querySelector('.profile__name'),
   profileDescription: document.querySelector('.profile__description'),
 }
