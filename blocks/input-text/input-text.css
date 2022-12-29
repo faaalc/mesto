@@ -1,9 +1,0 @@
-.input-text {
-  font-family: inherit;
-  border: none;
-  outline: none;
-  color: #000000;
-}
-.input-text::placeholder {
-  color: #000000;
-}
