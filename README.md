@@ -15,4 +15,4 @@
 - и тд
 
 ## Проект
-Проект можно посмотреть по [ссылке](https://faaalc.github.io/mesto/)
+Проект можно посмотреть по [ссылке](https://fil4tov.github.io/mesto/)
