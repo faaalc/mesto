@@ -31,10 +31,12 @@ const generatePopup = (settings) => {
   const {className, title, form, image} = settings,
     popup = document.createElement('div'),
     container = document.createElement('div'),
-    closePopup = (popup) => popup.remove()
+    closeButtonHTML = `<button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>`
+
 
   popup.classList.add('popup', ...className)
   container.classList.add('popup__container')
+  container.insertAdjacentHTML('beforeend', closeButtonHTML)
 
   //Optional title
   if (title) {
@@ -77,15 +79,15 @@ const generatePopup = (settings) => {
     formEl.insertAdjacentHTML('beforeend', buttonHTML)
 
     //Adding listener and validation
-    formEl.addEventListener('submit', e => {
-      e.preventDefault()
-      const formData = new FormData(e.target),
-        formValues = Object.values(Object.fromEntries(formData))
-      if (formValues.every(v => !!v.trim())) {
-        form.callback()
-        closePopup(popup)
-      }
-    })
+    // formEl.addEventListener('submit', e => {
+    //   e.preventDefault()
+    //   const formData = new FormData(e.target),
+    //     formValues = Object.values(Object.fromEntries(formData))
+    //   if (formValues.every(v => !!v.trim())) {
+    //     form.callback()
+    //     closePopup()
+    //   }
+    // })
   }
 
   //Optional (image popup)
@@ -97,12 +99,33 @@ const generatePopup = (settings) => {
     container.insertAdjacentHTML('beforeend', html)
   }
 
-  //Close button
-  const closeButtonHTML = `<button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>`
-  container.insertAdjacentHTML('beforeend', closeButtonHTML)
+  const closePopup = () => {
+    popup.remove()
+    document.removeEventListener('keydown', closeOnEscape)
+    closeButtonEl.removeEventListener('click', closePopup)
+    formEl?.removeEventListener('submit', formCallback)
+  }
+  const formCallback = e => {
+    e.preventDefault()
+    const formData = new FormData(e.target),
+      formValues = Object.values(Object.fromEntries(formData))
+    if (formValues.every(v => !!v.trim())) {
+      form.callback()
+      closePopup()
+    }
+  }
 
-  const closeButtonEl = container.querySelector('.popup__close')
-  closeButtonEl.addEventListener('click', () => closePopup(popup))
+  //Close on button listener
+  const closeButtonEl = container.querySelector('.popup__close'),
+        formEl = container.querySelector('form')
+
+
+  closeButtonEl.addEventListener('click', closePopup)
+  formEl?.addEventListener('submit', formCallback)
+
+  //Close on escape listener
+  const closeOnEscape = e => e.key === 'Escape' && closePopup()
+  document.addEventListener('keydown', closeOnEscape)
 
   popup.append(container)
   document.body.append(popup)
