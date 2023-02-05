@@ -2,7 +2,9 @@
   background-color: rgba(0,0,0,.9);
 }
 .popup-image__container {
-  position: relative;
+  padding: 0;
+  width: auto;
+  background-color: transparent;
 }
 .popup-image__location {
   font-weight: 400;
