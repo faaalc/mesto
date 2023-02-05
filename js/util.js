@@ -77,17 +77,6 @@ const generatePopup = (settings) => {
           type="submit" 
           aria-label="${button.ariaLabel}">${button.title}</button>`
     formEl.insertAdjacentHTML('beforeend', buttonHTML)
-
-    //Adding listener and validation
-    // formEl.addEventListener('submit', e => {
-    //   e.preventDefault()
-    //   const formData = new FormData(e.target),
-    //     formValues = Object.values(Object.fromEntries(formData))
-    //   if (formValues.every(v => !!v.trim())) {
-    //     form.callback()
-    //     closePopup()
-    //   }
-    // })
   }
 
   //Optional (image popup)
@@ -99,12 +88,16 @@ const generatePopup = (settings) => {
     container.insertAdjacentHTML('beforeend', html)
   }
 
+
+  //Closing and removing listeners function
   const closePopup = () => {
     popup.remove()
     document.removeEventListener('keydown', closeOnEscape)
     closeButtonEl.removeEventListener('click', closePopup)
     formEl?.removeEventListener('submit', formCallback)
   }
+
+  //Adding form submit listener and validating form
   const formCallback = e => {
     e.preventDefault()
     const formData = new FormData(e.target),
@@ -114,18 +107,14 @@ const generatePopup = (settings) => {
       closePopup()
     }
   }
-
-  //Close on button listener
-  const closeButtonEl = container.querySelector('.popup__close'),
-        formEl = container.querySelector('form')
-
-
-  closeButtonEl.addEventListener('click', closePopup)
+  const formEl = container.querySelector('form')
   formEl?.addEventListener('submit', formCallback)
 
-  //Close on escape listener
-  const closeOnEscape = e => e.key === 'Escape' && closePopup()
+  //Close actions
+  const closeOnEscape = e => e.key === 'Escape' && closePopup(),
+    closeButtonEl = container.querySelector('.popup__close');
   document.addEventListener('keydown', closeOnEscape)
+  closeButtonEl.addEventListener('click', closePopup)
 
   popup.append(container)
   document.body.append(popup)
