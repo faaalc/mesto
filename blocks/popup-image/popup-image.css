@@ -1,0 +1,15 @@
+.popup-image {
+  background-color: rgba(0,0,0,.9);
+}
+.popup-image__container {
+  position: relative;
+}
+.popup-image__location {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+}
+.popup-image__image {
+  max-width: 75vw;
+  max-height: 75vh;
+}
