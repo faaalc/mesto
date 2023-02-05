@@ -1,4 +1,27 @@
 //Popup generate function
+/**
+ * Generates HTML popup element.
+ *
+ * @param {Object} settings Settings
+ * @param {string[]} settings.className Popup classes
+ * @param {string} settings.title Popup title
+ * @param {Object} settings.form /////Popup form/////
+ * @param {string[]} settings.form.className Popup form classes
+ * @param {string} settings.form.name Popup name
+ * @param {function} settings.form.callback Popup submit function
+ * @param {Object} settings.firstInput /////Popup 1st input/////
+ * @param {string[]} settings.firstInput.className Input classes
+ * @param {string} settings.firstInput.name Input name
+ * @param {string} settings.firstInput.placeholder Input placeholder
+ * @param {Object} settings.secondInput /////Popup 2nd input/////
+ * @param {string[]} settings.secondInput.className Input classes
+ * @param {string} settings.secondInput.name Input name
+ * @param {string} settings.secondInput.placeholder Input placeholder
+ * @param {Object} settings.button /////Popup save button/////
+ * @param {string} settings.button.title Button title
+ * @param {string} settings.button.ariaLabel Button aria-label
+ * @return {HTMLElement} HTML popup element.
+ */
 const generatePopup = (settings) => {
   const {className, title, form, firstInput, secondInput, button} = settings,
     popup = document.createElement('div')
@@ -42,13 +65,13 @@ const openPopup = (popup) => popup.classList.add('popup_opened')
 const GALLERY = document.querySelector('.gallery')
 
 /**
- * Generates HTML card element.
+ * Generates and prepends HTML card element.
  *
- * @param data Information about the card
- * @param data.name Location
- * @param data.link Image link
- * @param selector HTML selector to add the card
- * @return {Element} HTML card element.
+ * @param {Object} data Information about the card
+ * @param {string} data.name Location
+ * @param {string} data.link Image link
+ * @param {HTMLElement} selector HTML selector to add the card
+ * @return {HTMLElement} HTML card element.
  */
 const generateAndAddCard = (data, selector) => {
   const {name, link} = data,
