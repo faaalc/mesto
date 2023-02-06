@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
   //Popup general functions
-  const closePopup = (popup) => {
+  const closePopup = popup => {
     popup.classList.add('hide')
     setTimeout(()=> popup.classList.remove('popup_opened', 'hide'), 200)
     document.removeEventListener('keydown', closePopupOnEscape)
@@ -39,13 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
       closePopup(popup)
     }
   }
-  const openPopup = (popup) => {
+  const openPopup = popup => {
     popup.classList.add('popup_opened')
     document.addEventListener('keydown', closePopupOnEscape)
   }
 
   //popupImage open
-  const openImagePopup = (e) => {
+  const openImagePopup = e => {
     openPopup(popupImage.popup)
     popupImage.image.src = e.target.src
     popupImage.image.alt = e.target.alt
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   //popupEdit open and submit
-  const openEditPopup = (popup) => {
+  const openEditPopup = popup => {
     openPopup(popup)
     popupEdit.nameInput.value = popupEdit.profileName.textContent
     popupEdit.descriptionInput.value = popupEdit.profileDescription.textContent
