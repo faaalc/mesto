@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     popupAdd = {
       popup: document.querySelector('.popup_type_add'),
+      form: document.querySelector('.popup__form_add-card'),
       openBtn: document.querySelector('.profile__add-button'),
       placeInput: document.querySelector('.popup__input_type_place'),
       linkInput: document.querySelector('.popup__input_type_link')
@@ -26,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       location: document.querySelector('.popup__location')
     };
 
-  //Popup general actions
-  const closeOnEscape = e => {
+  //Popup general functions
+  const closePopupOnEscape = e => {
     if (e.key === 'Escape') {
       const popup = document.querySelector('.popup_opened')
       closePopup(popup)
@@ -35,23 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const openPopup = (popup) => {
     popup.classList.add('popup_opened')
-    document.addEventListener('keydown', closeOnEscape)
+    document.addEventListener('keydown', closePopupOnEscape)
   }
   const closePopup = (popup) => {
     popup.classList.add('hide')
     setTimeout(()=> popup.classList.remove('popup_opened', 'hide'), 200)
-    document.removeEventListener('keydown', closeOnEscape)
+    document.removeEventListener('keydown', closePopupOnEscape)
   }
 
-
-  //ImagePopup actions
+  //ImagePopup open
   const openImagePopup = (e) => {
     openPopup(popupImage.popup)
     popupImage.image.src = e.target.src
     popupImage.image.alt = e.target.alt
     popupImage.location.textContent = e.target.alt
   }
-  //EditPopup actions
+
+  //EditPopup open and submit
   const openEditPopup = (popup) => {
     openPopup(popup)
     popupEdit.nameInput.value = popupEdit.profileName.textContent
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closePopup(popupEdit.popup)
   }
 
-  //AddPopup actions
+  //AddPopup submit with validation
   const handleSubmitPopupAdd = e => {
     e.preventDefault()
     const formData = new FormData(e.target),
@@ -90,9 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
   popupEdit.openBtn.addEventListener('click', () => openEditPopup(popupEdit.popup))
   popupEdit.form.addEventListener('submit', handleChangesEditPopup)
 
-  //Adding popupAdd listeners
+  // Adding popupAdd listeners
   popupAdd.openBtn.addEventListener('click', () => openPopup(popupAdd.popup))
-  popupAdd.popup.addEventListener('submit', handleSubmitPopupAdd)
+  popupAdd.form.addEventListener('submit', handleSubmitPopupAdd)
 
   //Adding cards to page form data
   initialCards.forEach(card => generateAndAddCard(card, gallery, openImagePopup))
