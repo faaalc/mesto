@@ -12,17 +12,23 @@ const generateAndAddCard = (data, selector, imageAction) => {
     card = document.createElement('div')
   card.classList.add('card')
 
-  //Creating card and validating from XSS
+  //Creating card
   card.innerHTML = `
-    <img src=${link.replace(/(<)|(>)/g, '')} alt="${name.replace(/(<)|(>)/g, '')}" class="card__photo">
+    <img class="card__photo">
     <div class="card__description">
       <h2 class="card__location"></h2>
       <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
     </div>
     <button class="button card__delete-button" type="button" aria-label="Удалить пост"></button>
   `
-  const cardLocation = card.querySelector('.card__location')
+  const
+    cardLocation = card.querySelector('.card__location'),
+    cardImage = card.querySelector('.card__photo')
+
+  //Validating from possible scripts
   cardLocation.textContent = name
+  cardImage.src = link.replace(/(<)|(>)/g, '')
+  cardImage.alt = name.replace(/(<)|(>)/g, '')
 
   //Creating functions for listeners
   const likeButton = card.querySelector('.card__like-button'),

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nameInput: document.querySelector('.popup__input_type_name'),
       descriptionInput: document.querySelector('.popup__input_type_description'),
       profileName: document.querySelector('.profile__name'),
-      profileDescription: document.querySelector('.profile__description'),
+      profileDescription: document.querySelector('.profile__description')
     },
     popupAdd = {
       popup: document.querySelector('.popup_type_add'),
@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
   //Popup general functions
+  const closePopup = (popup) => {
+    popup.classList.add('hide')
+    setTimeout(()=> popup.classList.remove('popup_opened', 'hide'), 200)
+    document.removeEventListener('keydown', closePopupOnEscape)
+  }
   const closePopupOnEscape = e => {
     if (e.key === 'Escape') {
       const popup = document.querySelector('.popup_opened')
@@ -37,11 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const openPopup = (popup) => {
     popup.classList.add('popup_opened')
     document.addEventListener('keydown', closePopupOnEscape)
-  }
-  const closePopup = (popup) => {
-    popup.classList.add('hide')
-    setTimeout(()=> popup.classList.remove('popup_opened', 'hide'), 200)
-    document.removeEventListener('keydown', closePopupOnEscape)
   }
 
   //ImagePopup open
