@@ -1,102 +1,99 @@
-import generatePopup from './modules/popup.js';
 import generateAndAddCard from './modules/card.js';
 import {initialCards} from './data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const gallery = document.querySelector('.gallery'),
-    profileOpenButton = document.querySelector('.profile__edit-button'),
-    profileAddButton = document.querySelector('.profile__add-button'),
-    profileName = document.querySelector('.profile__name'),
-    profileDescription = document.querySelector('.profile__description');
+  const
+    popupCloseButtons = document.querySelectorAll('.popup__close'),
+    gallery = document.querySelector('.gallery'),
+    popupEdit = {
+      popup: document.querySelector('.popup_type_edit'),
+      form: document.querySelector('.popup__form_edit-description'),
+      openBtn: document.querySelector('.profile__edit-button'),
+      nameInput: document.querySelector('.popup__input_type_name'),
+      descriptionInput: document.querySelector('.popup__input_type_description'),
+      profileName: document.querySelector('.profile__name'),
+      profileDescription: document.querySelector('.profile__description'),
+    },
+    popupAdd = {
+      popup: document.querySelector('.popup_type_add'),
+      openBtn: document.querySelector('.profile__add-button'),
+      placeInput: document.querySelector('.popup__input_type_place'),
+      linkInput: document.querySelector('.popup__input_type_link')
+    },
+    popupImage = {
+      popup: document.querySelector('.popup_type_image'),
+      image: document.querySelector('.popup__full-screen-image'),
+      location: document.querySelector('.popup__location')
+    };
 
-
-//Adding cards from data to page
-  (function () {
-    initialCards.forEach(card => generateAndAddCard(card, gallery))
-  })()
-
-
-//Creating and configurating edit popup
-  const openPopupEdit = () => {
-    const popupEdit = generatePopup({
-        className: ['popup_type_edit'],
-        title: 'Редактировать профиль',
-        form: {
-          className: ['popup__form_edit-description'],
-          name: 'edit-description',
-          callback: saveChangesInEditPopup,
-          firstInput: {
-            className: ['popup__input_type_name'],
-            name: 'popup-name',
-            type: 'text',
-            placeholder: 'Имя'
-          },
-          secondInput: {
-            className: ['popup__input_type_description'],
-            name: 'popup-description',
-            type: 'text',
-            placeholder: 'О себе'
-          },
-          button: {
-            title: 'Сохранить',
-            ariaLabel: 'Сохранить изменения'
-          }
-        }
-      }),
-      popupEditNameInput = popupEdit.querySelector('.popup__input_type_name'),
-      popupEditDescriptionInput = popupEdit.querySelector('.popup__input_type_description');
-
-    //Setting profile info into inputs
-    popupEditNameInput.value = profileName.textContent
-    popupEditDescriptionInput.value = profileDescription.textContent
-
-    function saveChangesInEditPopup() {
-      profileName.textContent = popupEditNameInput.value
-      profileDescription.textContent = popupEditDescriptionInput.value
+  //Popup general actions
+  const closeOnEscape = e => {
+    if (e.key === 'Escape') {
+      const popup = document.querySelector('.popup_opened')
+      closePopup(popup)
     }
   }
-  profileOpenButton.addEventListener('click', openPopupEdit)
+  const openPopup = (popup) => {
+    popup.classList.add('popup_opened')
+    document.addEventListener('keydown', closeOnEscape)
+  }
+  const closePopup = (popup) => {
+    popup.classList.add('hide')
+    setTimeout(()=> popup.classList.remove('popup_opened', 'hide'), 200)
+    document.removeEventListener('keydown', closeOnEscape)
+  }
 
 
-// Creating and configurating add post popup
-  const openPopupAdd = () => {
-    const popupAdd = generatePopup({
-        className: ['popup_type_add'],
-        title: 'Новое место',
-        form: {
-          className: ['popup__form_add-card'],
-          name: 'add-card',
-          callback: addNewCardFromPopup,
-          firstInput: {
-            className: ['popup__input_type_place'],
-            name: 'popup-place',
-            type: 'text',
-            placeholder: 'Место'
-          },
-          secondInput: {
-            className: ['popup__input_type_link'],
-            name: 'popup-link',
-            type: 'url',
-            placeholder: 'Ссылка на картинку'
-          },
-          button: {
-            title: 'Создать',
-            ariaLabel: 'Создать карточку'
-          }
-        }
-      }),
-      popupAddPlaceInput = popupAdd.querySelector('.popup__input_type_place'),
-      popupAddLinkInput = popupAdd.querySelector('.popup__input_type_link');
+  //ImagePopup actions
+  const openImagePopup = (e) => {
+    openPopup(popupImage.popup)
+    popupImage.image.src = e.target.src
+    popupImage.image.alt = e.target.alt
+    popupImage.location.textContent = e.target.alt
+  }
+  //EditPopup actions
+  const openEditPopup = (popup) => {
+    openPopup(popup)
+    popupEdit.nameInput.value = popupEdit.profileName.textContent
+    popupEdit.descriptionInput.value = popupEdit.profileDescription.textContent
+  }
+  const handleChangesEditPopup = e => {
+    e.preventDefault()
+    popupEdit.profileName.textContent = popupEdit.nameInput.value
+    popupEdit.profileDescription.textContent = popupEdit.descriptionInput.value
+    closePopup(popupEdit.popup)
+  }
 
-    function addNewCardFromPopup() {
+  //AddPopup actions
+  const handleSubmitPopupAdd = e => {
+    e.preventDefault()
+    const formData = new FormData(e.target),
+      formValues = Object.values(Object.fromEntries(formData))
+    if (formValues.every(v => !!v.trim())) {
       const data = {
-        name: popupAddPlaceInput.value,
-        link: popupAddLinkInput.value
+        name: popupAdd.placeInput.value,
+        link: popupAdd.linkInput.value
       }
-      generateAndAddCard(data, gallery)
-      popupAddPlaceInput.value = ''
-      popupAddLinkInput.value = ''
+      closePopup(popupAdd.popup)
+      generateAndAddCard(data, gallery, openImagePopup)
+      popupAdd.placeInput.value = ''
+      popupAdd.linkInput.value = ''
     }
   }
-  profileAddButton.addEventListener('click', openPopupAdd)
+
+  //Adding close listeners
+  popupCloseButtons.forEach(btn => {
+    btn.addEventListener('click', e => closePopup(e.target.closest('.popup')))
+  })
+
+  //Adding popupEdit listeners
+  popupEdit.openBtn.addEventListener('click', () => openEditPopup(popupEdit.popup))
+  popupEdit.form.addEventListener('submit', handleChangesEditPopup)
+
+  //Adding popupAdd listeners
+  popupAdd.openBtn.addEventListener('click', () => openPopup(popupAdd.popup))
+  popupAdd.popup.addEventListener('submit', handleSubmitPopupAdd)
+
+  //Adding cards to page form data
+  initialCards.forEach(card => generateAndAddCard(card, gallery, openImagePopup))
 })
