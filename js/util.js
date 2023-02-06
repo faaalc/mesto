@@ -138,13 +138,15 @@ const generateAndAddCard = (data, selector) => {
 
   //Creating card
   card.innerHTML = `
-    <img src=${link} alt="${name}" class="card__photo">
+    <img src=${link} alt="${name.replace(/(<)|(>)/g, '')}" class="card__photo">
     <div class="card__description">
-      <h2 class="card__location">${name}</h2>
+      <h2 class="card__location"></h2>
       <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
     </div>
     <button class="button card__delete-button" type="button" aria-label="Удалить пост"></button>
   `
+  const cardLocation = card.querySelector('.card__location')
+  cardLocation.textContent = name
 
   //Creating functions for listeners
   const likeButton = card.querySelector('.card__like-button'),
