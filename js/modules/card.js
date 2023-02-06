@@ -14,14 +14,14 @@ const generateAndAddCard = (data, selector, imageAction) => {
   card.classList.add('card')
 
   //Creating card
-  card.innerHTML = `
+  card.insertAdjacentHTML('beforeend', `
     <img src="#" alt="#" class="card__photo">
     <div class="card__description">
       <h2 class="card__location"></h2>
       <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
     </div>
     <button class="button card__delete-button" type="button" aria-label="Удалить пост"></button>
-  `
+  `)
   const
     cardLocation = card.querySelector('.card__location'),
     cardImage = card.querySelector('.card__photo'),
