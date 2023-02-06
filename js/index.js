@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', closePopupOnEscape)
   }
 
-  //ImagePopup open
+  //popupImage open
   const openImagePopup = (e) => {
     openPopup(popupImage.popup)
     popupImage.image.src = e.target.src
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     popupImage.location.textContent = e.target.alt
   }
 
-  //EditPopup open and submit
+  //popupEdit open and submit
   const openEditPopup = (popup) => {
     openPopup(popup)
     popupEdit.nameInput.value = popupEdit.profileName.textContent
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closePopup(popupEdit.popup)
   }
 
-  //AddPopup submit with validation
+  //popupAdd submit with validation
   const handleSubmitPopupAdd = e => {
     e.preventDefault()
     const formData = new FormData(e.target),
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  //Adding close listeners
+  //Adding closePopup listeners
   popupCloseButtons.forEach(btn => {
     btn.addEventListener('click', e => closePopup(e.target.closest('.popup')))
   })

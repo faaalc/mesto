@@ -8,13 +8,14 @@
  * @param {Function} [imageAction] Optional callback for image actions
  */
 const generateAndAddCard = (data, selector, imageAction) => {
-  const {name, link} = data,
-    card = document.createElement('div')
+  const
+    {name, link} = data,
+    card = document.createElement('div');
   card.classList.add('card')
 
   //Creating card
   card.innerHTML = `
-    <img class="card__photo">
+    <img src="#" alt="#" class="card__photo">
     <div class="card__description">
       <h2 class="card__location"></h2>
       <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
@@ -23,7 +24,9 @@ const generateAndAddCard = (data, selector, imageAction) => {
   `
   const
     cardLocation = card.querySelector('.card__location'),
-    cardImage = card.querySelector('.card__photo')
+    cardImage = card.querySelector('.card__photo'),
+    likeButton = card.querySelector('.card__like-button'),
+    deleteButton = card.querySelector('.card__delete-button');
 
   //Validating from possible scripts
   cardLocation.textContent = name
@@ -31,14 +34,13 @@ const generateAndAddCard = (data, selector, imageAction) => {
   cardImage.alt = name.replace(/(<)|(>)/g, '')
 
   //Creating functions for listeners
-  const likeButton = card.querySelector('.card__like-button'),
-    deleteButton = card.querySelector('.card__delete-button'),
+  const
     likeCard = () => likeButton.classList.toggle('card__like-button_active'),
-    deleteCard = () => deleteButton.closest('.card').remove()
+    deleteCard = () => deleteButton.closest('.card').remove(),
+    checkTarget = (e, className) => e.target.classList.contains(className);
 
   //Adding listeners
   card.addEventListener('click', e => {
-    const checkTarget = (e, className) => e.target.classList.contains(className)
     checkTarget(e, 'card__like-button') && likeCard()
     checkTarget(e, 'card__delete-button') && deleteCard()
     imageAction && checkTarget(e, 'card__photo') && imageAction(e)
