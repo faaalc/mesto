@@ -3,7 +3,7 @@
   height: 19px;
   background-image: url("../../../images/card/like.svg");
   background-repeat: no-repeat;
-  transition: var(--button-transition-opacity), var(--button-transition-bgi);
+  transition: var(--transition-opacity), var(--button-transition-bgi);
 }
 .card__like-button:hover {
   opacity: .5;

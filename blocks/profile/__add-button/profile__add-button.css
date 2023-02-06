@@ -4,7 +4,7 @@
   margin-left: auto;
   background-image: url("../../../images/profile/add.svg");
   background-repeat: no-repeat;
-  transition: var(--button-transition-opacity);
+  transition: var(--transition-opacity);
 }
 .profile__add-button:hover {
   opacity: var(--button-hover-opacity);

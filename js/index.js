@@ -1,3 +1,7 @@
+import generatePopup from './modules/popup.js';
+import generateAndAddCard from './modules/card.js';
+import {initialCards} from './data.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const gallery = document.querySelector('.gallery'),
     profileOpenButton = document.querySelector('.profile__edit-button'),

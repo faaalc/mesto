@@ -6,7 +6,7 @@
   font-size: 18px;
   line-height: 22px;
   margin-top: 48px;
-  transition: var(--button-transition-opacity);
+  transition: var(--transition-opacity);
 }
 .popup__save:hover {
   opacity: .8;

@@ -1,4 +1,4 @@
-const initialCards = [
+export const initialCards = [
   {
     id: 1,
     name: 'Мальта',

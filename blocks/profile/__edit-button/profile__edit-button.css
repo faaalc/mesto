@@ -2,7 +2,7 @@
   width: 24px;
   height: 24px;
   background-image: url("../../../images/profile/edit.svg");
-  transition: var(--button-transition-opacity);
+  transition: var(--transition-opacity);
   margin: 16px 0 0 18px;
 }
 .profile__edit-button:hover {
