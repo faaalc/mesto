@@ -1,4 +1,5 @@
-import generateAndAddCard from './modules/card.js';
+// import generateAndAddCard from './modules/card.js';
+import generateCard from './modules/card.js';
 import {initialCards} from './data.js';
 
 const
@@ -76,7 +77,8 @@ const handleSubmitPopupAdd = e => {
       link: popupAdd.linkInput.value
     }
     closePopup(popupAdd.popup)
-    generateAndAddCard(data, gallery, openImagePopup)
+    // generateAndAddCard(data, gallery, openImagePopup)
+    generateCard(data, gallery, openImagePopup)
     popupAdd.placeInput.value = ''
     popupAdd.linkInput.value = ''
   }
@@ -96,4 +98,5 @@ popupAdd.openBtn.addEventListener('click', () => openPopup(popupAdd.popup))
 popupAdd.form.addEventListener('submit', handleSubmitPopupAdd)
 
 //Adding cards to page form data
-initialCards.forEach(card => generateAndAddCard(card, gallery, openImagePopup))
+// initialCards.forEach(card => generateAndAddCard(card, gallery, openImagePopup))
+initialCards.forEach(card => generateCard(card, gallery, openImagePopup))
