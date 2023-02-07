@@ -1,4 +1,5 @@
 import generateCard from './modules/card.js';
+import {prependElement} from './utils.js';
 import {initialCards} from './data.js';
 
 const
@@ -76,7 +77,7 @@ const handleSubmitPopupAdd = e => {
       link: popupAdd.linkInput.value
     }
     closePopup(popupAdd.popup)
-    generateCard(data, gallery, openImagePopup)
+    prependElement(generateCard(data, openImagePopup), gallery)
     popupAdd.placeInput.value = ''
     popupAdd.linkInput.value = ''
   }
@@ -96,4 +97,4 @@ popupAdd.openBtn.addEventListener('click', () => openPopup(popupAdd.popup))
 popupAdd.form.addEventListener('submit', handleSubmitPopupAdd)
 
 //Adding cards to page form data
-initialCards.forEach(card => generateCard(card, gallery, openImagePopup))
+initialCards.forEach(card => prependElement(generateCard(card, openImagePopup), gallery))
