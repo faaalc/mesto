@@ -15,5 +15,6 @@
   .gallery {
     grid-template-columns: fit-content(282px);
     margin-top: 36px;
+    justify-content: center;
   }
 }
