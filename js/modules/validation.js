@@ -19,29 +19,36 @@ const validateForm = (form, inputList, input, inputErrorClass, button, minLength
 }
 
 const validateInput = (form, input, inputErrorClass, minLength) => {
-  const isInputValid = input.validity.valid && input.value.trim().length >= minLength
+  const isInputValid = checkInputValidity(input, minLength)
   isInputValid
-    ? hideInputError(form, input, inputErrorClass)
-    : showInputError(form, input, inputErrorClass)
+    ? toggleInputError(true, form, input, inputErrorClass)
+    : toggleInputError(false, form, input, inputErrorClass)
 }
 
-const isFormValid = (inputList, minLength) => (
-  [...inputList].every(input => input.validity.valid && input.value.trim().length >= minLength)
-)
+const toggleInputError = (state, form, input, inputErrorClass) => {
+  const errorElement = form.querySelector(`.${input.name}-error`)
+  if (state) {
+    errorElement.textContent = ''
+    input.classList.remove(inputErrorClass)
+  }
+  else {
+    errorElement.textContent = input.validationMessage
+    input.classList.add(inputErrorClass)
+  }
+}
 
-const showInputError = (form, input, inputErrorClass) => {
-  const errorElement = form.querySelector(`.${input.name}-error`)
-  errorElement.textContent = input.validationMessage
-  input.classList.add(inputErrorClass)
-}
-const hideInputError = (form, input, inputErrorClass) => {
-  const errorElement = form.querySelector(`.${input.name}-error`)
-  errorElement.textContent = ''
-  input.classList.remove(inputErrorClass)
-}
 const toggleSubmitButton = (inputList, button, minLength) => {
   button.disabled = !isFormValid(inputList, minLength)
 }
+
+const isFormValid = (inputList, minLength) => (
+  [...inputList].every(input => checkInputValidity(input, minLength))
+)
+
+const checkInputValidity = (input, minLength) => (
+  input.validity.valid && input.value.trim().length >= minLength
+)
+
 /**
  * Adds validation listeners to all forms with the provided selector.
  *
@@ -58,6 +65,7 @@ const enableFormsValidation = (settings) => {
     forms = document.querySelectorAll(formSelector);
   forms.forEach(form => setFormValidation({form, ...props}))
 }
+
 /**
  * Validating the form passed as a parameter.
  *
