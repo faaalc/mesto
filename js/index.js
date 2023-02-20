@@ -29,7 +29,8 @@ const
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save',
-    inputErrorClass: 'popup__input_type_error'
+    inputErrorClass: 'popup__input_type_error',
+    minLength: 2
   };
 
 
