@@ -31,9 +31,30 @@
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form method="post" action="#" name="edit-description" class="popup__form popup__form_edit-description">
-        <input type="text" class="popup__input popup__input_type_name" name="popup-name" placeholder="Имя">
-        <input type="text" class="popup__input popup__input_type_description" name="popup-description" placeholder="О себе">
-        <button class="button popup__save" type="submit" aria-label="Сохранить изменения">Сохранить</button>
+
+        <label class="popup__field">
+          <input type="text"
+                 class="popup__input popup__input_type_name"
+                 name="popup-name"
+                 placeholder="Имя"
+                 minlength="2"
+                 maxlength="40"
+                 required>
+          <span class="popup__input-error popup-name-error"></span>
+        </label>
+
+        <label class="popup__field">
+          <input type="text"
+                 class="popup__input popup__input_type_description"
+                 name="popup-description"
+                 placeholder="О себе"
+                 minlength="2"
+                 maxlength="200"
+                 required>
+          <span class="popup__input-error popup-description-error"></span>
+        </label>
+
+        <button class="button popup__save" type="submit" aria-label="Сохранить изменения" disabled>Сохранить</button>
       </form>
       <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
@@ -43,9 +64,30 @@
     <div class="popup__container">
       <h2 class="popup__title">Добавить пост</h2>
       <form method="post" action="#" name="add-card" class="popup__form popup__form_add-card">
-        <input type="text" class="popup__input popup__input_type_place" name="popup-place" placeholder="Место">
-        <input type="url" class="popup__input popup__input_type_link" name="popup-link" placeholder="Ссылка на картинку">
-        <button class="button popup__save" type="submit" aria-label="Создать карточку">Создать</button>
+
+        <label class="popup__field">
+          <input type="text"
+                 class="popup__input popup__input_type_place"
+                 name="popup-place"
+                 placeholder="Место"
+                 minlength="2"
+                 maxlength="30"
+                 required
+          >
+          <span class="popup__input-error popup-place-error"></span>
+        </label>
+
+        <label class="popup__field">
+          <input type="url"
+                 class="popup__input popup__input_type_link"
+                 name="popup-link"
+                 placeholder="Ссылка на картинку"
+                 required
+          >
+          <span class="popup__input-error popup-link-error"></span>
+        </label>
+
+        <button class="button popup__save" type="submit" aria-label="Создать карточку" disabled>Создать</button>
       </form>
       <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>

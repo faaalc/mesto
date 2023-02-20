@@ -6,10 +6,18 @@
   font-size: 18px;
   line-height: 22px;
   margin-top: 48px;
+  border-radius: 2px;
   transition: var(--transition-opacity);
 }
 .popup__save:hover {
   opacity: .8;
+}
+
+.popup__save:disabled {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #000000;
+  opacity: .2;
 }
 
 @media screen and (max-width: 767px) {
