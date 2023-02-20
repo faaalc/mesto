@@ -6,6 +6,7 @@
   font-size: 18px;
   line-height: 22px;
   margin-top: 48px;
+  border: 1px solid transparent;
   border-radius: 2px;
   transition: var(--transition-opacity), var(--transition-bgc);
 }
