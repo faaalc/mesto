@@ -27,7 +27,7 @@
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
 
-  <div class="popup popup_type_edit">
+  <div class="popup popup_type_edit" data-close>
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form method="post"
@@ -40,32 +40,32 @@
         <label class="popup__field">
           <input type="text"
                  class="popup__input popup__input_type_name"
-                 name="popup-name"
+                 name="name"
                  placeholder="Имя"
                  minlength="2"
                  maxlength="40"
                  required>
-          <span class="popup__input-error popup-name-error"></span>
+          <span class="popup__input-error name-error"></span>
         </label>
 
         <label class="popup__field">
           <input type="text"
                  class="popup__input popup__input_type_description"
-                 name="popup-description"
+                 name="description"
                  placeholder="О себе"
                  minlength="2"
                  maxlength="200"
                  required>
-          <span class="popup__input-error popup-description-error"></span>
+          <span class="popup__input-error description-error"></span>
         </label>
 
         <button class="button popup__save" type="submit" aria-label="Сохранить изменения">Сохранить</button>
       </form>
-      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно" data-close></button>
     </div>
   </div>
 
-  <div class="popup popup_type_add">
+  <div class="popup popup_type_add" data-close>
     <div class="popup__container">
       <h2 class="popup__title">Добавить пост</h2>
       <form method="post"
@@ -78,35 +78,35 @@
         <label class="popup__field">
           <input type="text"
                  class="popup__input popup__input_type_place"
-                 name="popup-place"
+                 name="place"
                  placeholder="Место"
                  minlength="2"
                  maxlength="30"
                  required>
-          <span class="popup__input-error popup-place-error"></span>
+          <span class="popup__input-error place-error"></span>
         </label>
 
         <label class="popup__field">
           <input type="url"
                  class="popup__input popup__input_type_link"
-                 name="popup-link"
+                 name="link"
                  placeholder="Ссылка на картинку"
                  required
           >
-          <span class="popup__input-error popup-link-error"></span>
+          <span class="popup__input-error link-error"></span>
         </label>
 
         <button class="button popup__save" type="submit" aria-label="Создать карточку">Создать</button>
       </form>
-      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно" data-close></button>
     </div>
   </div>
 
-  <div class="popup popup_type_image popup_dark">
+  <div class="popup popup_type_image popup_dark" data-close>
     <div class="popup__container popup__container_image">
       <img class="popup__full-screen-image" src="#" alt="#">
       <p class="popup__location"></p>
-      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно" data-close></button>
     </div>
   </div>
 

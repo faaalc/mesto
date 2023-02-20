@@ -7,6 +7,7 @@
   --popup-animation: .15s ease-in-out forwards;
   --header-line-color: rgba(84, 84, 84, 0.7);
   --transition-opacity: opacity .2s;
+  --transition-bgc: background-color .2s;
   --button-transition-bgi: background-image .2s;
   --button-hover-opacity: .6;
 }

@@ -1,9 +1,10 @@
 import generateCard from './modules/card.js';
 import {prependElement} from './utils.js';
+import {enableFormsValidation, toggleSubmitButton, validateFormOnOpen} from "./modules/validation.js";
 import {initialCards} from './data.js';
 
 const
-  popupCloseButtons = document.querySelectorAll('.popup__close'),
+  popupCloseButtons = document.querySelectorAll('[data-close]'),
   gallery = document.querySelector('.gallery'),
   popupEdit = {
     popup: document.querySelector('.popup_type_edit'),
@@ -17,15 +18,19 @@ const
   popupAdd = {
     popup: document.querySelector('.popup_type_add'),
     form: document.querySelector('.popup__form_add-card'),
-    openBtn: document.querySelector('.profile__add-button'),
-    placeInput: document.querySelector('.popup__input_type_place'),
-    linkInput: document.querySelector('.popup__input_type_link')
+    openBtn: document.querySelector('.profile__add-button')
   },
   popupImage = {
     popup: document.querySelector('.popup_type_image'),
     image: document.querySelector('.popup__full-screen-image'),
     location: document.querySelector('.popup__location')
-  };
+  },
+  formValidationSettings = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save',
+    inputErrorClass: 'popup__input_type_error'
+  }
 
 //Popup general functions
 const closePopup = popup => {
@@ -59,39 +64,51 @@ const openEditPopup = popup => {
   popupEdit.nameInput.value = popupEdit.profileName.textContent
   popupEdit.descriptionInput.value = popupEdit.profileDescription.textContent
 
-  const
-    inputList = popupEdit.form.querySelectorAll('.popup__input'),
-    button = popupEdit.form.querySelector('.popup__save')
-  inputList.forEach(input => {
-    validateForm(
-      popupEdit.form,
-      inputList,
-      input,
-      'popup__input_type_error',
-      button
-    )
-  })
+  //checking the validity when opening
+  const validationSettings = {
+    ...formValidationSettings,
+    formSelector: popup
+  }
+  validateFormOnOpen(validationSettings)
 }
-const handleChangesEditPopup = () => {
-  popupEdit.profileName.textContent = popupEdit.nameInput.value
-  popupEdit.profileDescription.textContent = popupEdit.descriptionInput.value
+const handleChangesEditPopup = e => {
+  const {name, description} = e.target.elements
+  popupEdit.profileName.textContent = name.value
+  popupEdit.profileDescription.textContent = description.value
   closePopup(popupEdit.popup)
 }
 
 //popupAdd submit with validation
 const handleSubmitPopupAdd = e => {
+  const {place, link} = e.target.elements
   const data = {
-    name: popupAdd.placeInput.value,
-    link: popupAdd.linkInput.value
+    name: place.value,
+    link: link.value
   }
   closePopup(popupAdd.popup)
   prependElement(generateCard(data, openImagePopup), gallery)
-  popupAdd.form.reset()
+  resetPopupAdd(e)
 }
+const resetPopupAdd = e => {
+  e.target.reset()
+  const
+    inputList = e.target.querySelectorAll(formValidationSettings.inputSelector),
+    button = e.target.querySelector(formValidationSettings.submitButtonSelector);
+  toggleSubmitButton(inputList, button)
+}
+
+//Adding validation on every form
+enableFormsValidation(formValidationSettings)
+
 
 //Adding closePopup listeners
 popupCloseButtons.forEach(btn => {
-  btn.addEventListener('click', e => closePopup(e.target.closest('.popup')))
+  btn.addEventListener('click', e => {
+    e.stopPropagation()
+    if (e.target === e.currentTarget) {
+      closePopup(e.currentTarget.closest('.popup'))
+    }
+  })
 })
 
 //Adding popupEdit listeners
@@ -104,68 +121,3 @@ popupAdd.form.addEventListener('submit', handleSubmitPopupAdd)
 
 //Adding cards to page form data
 initialCards.forEach(card => prependElement(generateCard(card, openImagePopup), gallery))
-
-
-
-
-
-/////////FORMS
-
-const setFormValidation = ({form, inputSelector, inputErrorClass, submitButtonSelector}) => {
-  const
-    inputList = form.querySelectorAll(inputSelector),
-    button = form.querySelector(submitButtonSelector)
-
-  form.addEventListener('submit', e => e.preventDefault())
-  inputList.forEach(input => {
-    input.addEventListener('input', e => {
-      const input = e.target
-      validateForm(form, inputList, input, inputErrorClass, button)
-    })
-  })
-  toggleSubmitButton(inputList, button)
-}
-
-const validateForm = (form, inputList, input, inputErrorClass, button) => {
-  validateInput(form, input, inputErrorClass)
-  toggleSubmitButton(inputList, button)
-}
-
-const validateInput = (form, input, inputErrorClass) => {
-  const isInputValid = input.validity.valid
-  isInputValid
-    ? hideInputError(form, input, inputErrorClass)
-    : showInputError(form, input, inputErrorClass)
-}
-
-const isFormValid = (inputList) => (
-  [...inputList].every(input => input.validity.valid)
-)
-
-const showInputError = (form, input, inputErrorClass) => {
-  const errorElement = form.querySelector(`.${input.name}-error`)
-
-  errorElement.textContent = input.validationMessage
-  input.classList.add(inputErrorClass)
-}
-const hideInputError = (form, input, inputErrorClass) => {
-  const errorElement = form.querySelector(`.${input.name}-error`)
-
-  errorElement.textContent = ''
-  input.classList.remove(inputErrorClass)
-}
-const toggleSubmitButton = (inputList, button) => {
-  button.disabled = !isFormValid(inputList)
-}
-
-const enableFormsValidation = ({formSelector, ...props}) => {
-  const forms = document.querySelectorAll(formSelector)
-  forms.forEach(form => setFormValidation({form, ...props}))
-}
-
-enableFormsValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inputErrorClass: 'popup__input_type_error'
-})
