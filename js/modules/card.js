@@ -14,6 +14,7 @@ const generateCard = (data, imageAction) => {
     {name, link} = data,
     cardElement = cardTemplate.querySelector('.card').cloneNode(true),
     likeButton = cardElement.querySelector('.card__like-button'),
+    deleteButton = cardElement.querySelector('.card__delete-button'),
     cardImage = cardElement.querySelector('.card__photo'),
     cardLocation = cardElement.querySelector('.card__location')
 
@@ -25,13 +26,13 @@ const generateCard = (data, imageAction) => {
   const
     likeCard = () => likeButton.classList.toggle('card__like-button_active'),
     deleteCard = () => cardElement.remove(),
-    checkTarget = (e, className) => e.target.classList.contains(className);
+    checkTarget = (e, element) => e.target === element;
 
   //Adding listeners
   cardElement.addEventListener('click', e => {
-    checkTarget(e, 'card__like-button') && likeCard()
-    checkTarget(e, 'card__delete-button') && deleteCard()
-    imageAction && checkTarget(e, 'card__photo') && imageAction(e)
+    checkTarget(e, likeButton) && likeCard()
+    checkTarget(e, deleteButton) && deleteCard()
+    imageAction && checkTarget(e, cardImage) && imageAction(e)
   })
 
   return cardElement

@@ -4,7 +4,7 @@ import {enableFormsValidation, toggleSubmitButton, validateFormOnOpen} from "./m
 import {initialCards} from './data.js';
 
 const
-  popupCloseButtons = document.querySelectorAll('[data-close]'),
+  popupCloseElements = document.querySelectorAll('[data-close]'),
   gallery = document.querySelector('.gallery'),
   popupEdit = {
     popup: document.querySelector('.popup_type_edit'),
@@ -30,7 +30,9 @@ const
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save',
     inputErrorClass: 'popup__input_type_error'
-  }
+  };
+
+
 
 //Popup general functions
 const closePopup = popup => {
@@ -73,8 +75,8 @@ const openEditPopup = popup => {
 }
 const handleChangesEditPopup = e => {
   const {name, description} = e.target.elements
-  popupEdit.profileName.textContent = name.value
-  popupEdit.profileDescription.textContent = description.value
+  popupEdit.profileName.textContent = name.value.trim()
+  popupEdit.profileDescription.textContent = description.value.trim()
   closePopup(popupEdit.popup)
 }
 
@@ -90,6 +92,7 @@ const handleSubmitPopupAdd = e => {
   resetPopupAdd(e)
 }
 const resetPopupAdd = e => {
+  //resetting form and disabling button
   e.target.reset()
   const
     inputList = e.target.querySelectorAll(formValidationSettings.inputSelector),
@@ -101,9 +104,10 @@ const resetPopupAdd = e => {
 enableFormsValidation(formValidationSettings)
 
 
+
 //Adding closePopup listeners
-popupCloseButtons.forEach(btn => {
-  btn.addEventListener('click', e => {
+popupCloseElements.forEach(el => {
+  el.addEventListener('click', e => {
     e.stopPropagation()
     if (e.target.hasAttribute('data-close')) {
       closePopup(e.target.closest('.popup'))
