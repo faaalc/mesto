@@ -84,14 +84,14 @@ const handleChangesEditPopup = e => {
 
 //popupAdd submit with validation
 const handleSubmitPopupAdd = e => {
-  const {place, link, create} = e.target.elements
+  const {place, link, button} = e.target.elements
   const data = {
     name: place.value,
     link: link.value
   }
   closePopup(popupAdd.popup)
   prependElement(generateCard(data, openImagePopup), gallery)
-  resetPopupAdd(e, create)
+  resetPopupAdd(e, button)
 }
 const resetPopupAdd = (e, button) => {
   //resetting form and disabling button
