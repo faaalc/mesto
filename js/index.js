@@ -67,7 +67,7 @@ const openEditPopup = popup => {
   //checking the validity when opening
   const validationSettings = {
     ...formValidationSettings,
-    formSelector: popup
+    form: popup
   }
   validateFormOnOpen(validationSettings)
 }
@@ -105,8 +105,8 @@ enableFormsValidation(formValidationSettings)
 popupCloseButtons.forEach(btn => {
   btn.addEventListener('click', e => {
     e.stopPropagation()
-    if (e.target === e.currentTarget) {
-      closePopup(e.currentTarget.closest('.popup'))
+    if (e.target.hasAttribute('data-close')) {
+      closePopup(e.target.closest('.popup'))
     }
   })
 })

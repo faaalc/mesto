@@ -19,14 +19,14 @@ const validateForm = (form, inputList, input, inputErrorClass, button) => {
 }
 
 const validateInput = (form, input, inputErrorClass) => {
-  const isInputValid = input.validity.valid
+  const isInputValid = input.validity.valid && !!input.value.trim()
   isInputValid
     ? hideInputError(form, input, inputErrorClass)
     : showInputError(form, input, inputErrorClass)
 }
 
 const isFormValid = (inputList) => (
-  [...inputList].every(input => input.validity.valid)
+  [...inputList].every(input => input.validity.valid && !!input.value.trim())
 )
 
 const showInputError = (form, input, inputErrorClass) => {
@@ -44,19 +44,38 @@ const hideInputError = (form, input, inputErrorClass) => {
 const toggleSubmitButton = (inputList, button) => {
   button.disabled = !isFormValid(inputList)
 }
-
-const enableFormsValidation = ({formSelector, ...props}) => {
-  const forms = document.querySelectorAll(formSelector)
+/**
+ * Adds validation listeners to all forms with the provided selector.
+ *
+ * @param {Object} settings Required selectors
+ * @param {string} settings.formSelector Form selector
+ * @param {string} settings.inputSelector Inputs selector
+ * @param {string} settings.submitButtonSelector Submit button selector
+ * @param {string} settings.inputErrorClass Error modifier class for the input
+ */
+const enableFormsValidation = (settings) => {
+  const
+    {formSelector, ...props} = settings,
+    forms = document.querySelectorAll(formSelector);
   forms.forEach(form => setFormValidation({form, ...props}))
 }
-
-const validateFormOnOpen = ({formSelector, inputSelector, submitButtonSelector, inputErrorClass}) => {
+/**
+ * Validating the form passed as a parameter.
+ *
+ * @param {Object} settings Required selectors
+ * @param {HTMLFormElement} settings.form Form element
+ * @param {string} settings.inputSelector Inputs selector
+ * @param {string} settings.submitButtonSelector Submit button selector
+ * @param {string} settings.inputErrorClass Error modifier class for the input
+ */
+const validateFormOnOpen = (settings) => {
   const
-    inputList = formSelector.querySelectorAll(inputSelector),
-    button = formSelector.querySelector(submitButtonSelector);
+    {form, inputSelector, submitButtonSelector, inputErrorClass} = settings,
+    inputList = form.querySelectorAll(inputSelector),
+    button = form.querySelector(submitButtonSelector);
 
   inputList.forEach(input => {
-    validateForm(formSelector, inputList, input, inputErrorClass, button)
+    validateForm(form, inputList, input, inputErrorClass, button)
   })
 }
 
