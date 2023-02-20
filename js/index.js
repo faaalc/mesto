@@ -1,10 +1,10 @@
 import generateCard from './modules/card.js';
 import {prependElement} from './utils.js';
-import {enableFormsValidation, toggleSubmitButton, validateFormOnOpen} from "./modules/validation.js";
+import {enableFormsValidation, validateFormOnOpen} from "./modules/validation.js";
 import {initialCards} from './data.js';
 
 const
-  popupCloseElements = document.querySelectorAll('[data-close]'),
+  popupCloseElements = document.querySelectorAll('.popup, .popup__close'),
   gallery = document.querySelector('.gallery'),
   popupEdit = {
     popup: document.querySelector('.popup_type_edit'),
@@ -18,7 +18,8 @@ const
   popupAdd = {
     popup: document.querySelector('.popup_type_add'),
     form: document.querySelector('.popup__form_add-card'),
-    openBtn: document.querySelector('.profile__add-button')
+    openBtn: document.querySelector('.profile__add-button'),
+    saveBtn: document.querySelector('input')
   },
   popupImage = {
     popup: document.querySelector('.popup_type_image'),
@@ -83,22 +84,19 @@ const handleChangesEditPopup = e => {
 
 //popupAdd submit with validation
 const handleSubmitPopupAdd = e => {
-  const {place, link} = e.target.elements
+  const {place, link, create} = e.target.elements
   const data = {
     name: place.value,
     link: link.value
   }
   closePopup(popupAdd.popup)
   prependElement(generateCard(data, openImagePopup), gallery)
-  resetPopupAdd(e)
+  resetPopupAdd(e, create)
 }
-const resetPopupAdd = e => {
+const resetPopupAdd = (e, button) => {
   //resetting form and disabling button
   e.target.reset()
-  const
-    inputList = e.target.querySelectorAll(formValidationSettings.inputSelector),
-    button = e.target.querySelector(formValidationSettings.submitButtonSelector);
-  toggleSubmitButton(inputList, button)
+  button.disabled = true
 }
 
 //Adding validation on every form
@@ -106,11 +104,11 @@ enableFormsValidation(formValidationSettings)
 
 
 
-//Adding closePopup listeners
+//Adding closePopup listeners on buttons and overlay
 popupCloseElements.forEach(el => {
   el.addEventListener('click', e => {
     e.stopPropagation()
-    if (e.target.hasAttribute('data-close')) {
+    if (e.target.classList.contains('popup') || e.target.classList.contains('popup__close')) {
       closePopup(e.target.closest('.popup'))
     }
   })

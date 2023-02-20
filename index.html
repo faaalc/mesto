@@ -27,7 +27,7 @@
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
 
-  <div class="popup popup_type_edit" data-close>
+  <div class="popup popup_type_edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form method="post"
@@ -61,11 +61,11 @@
 
         <button class="button popup__save" type="submit" aria-label="Сохранить изменения">Сохранить</button>
       </form>
-      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно" data-close></button>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
   </div>
 
-  <div class="popup popup_type_add" data-close>
+  <div class="popup popup_type_add">
     <div class="popup__container">
       <h2 class="popup__title">Добавить пост</h2>
       <form method="post"
@@ -95,17 +95,17 @@
           <span class="popup__input-error link-error"></span>
         </label>
 
-        <button class="button popup__save" type="submit" aria-label="Создать карточку">Создать</button>
+        <button class="button popup__save" type="submit" aria-label="Создать карточку" name="create">Создать</button>
       </form>
-      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно" data-close></button>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
   </div>
 
-  <div class="popup popup_type_image popup_dark" data-close>
+  <div class="popup popup_type_image popup_dark">
     <div class="popup__container popup__container_image">
       <img class="popup__full-screen-image" src="#" alt="#">
       <p class="popup__location"></p>
-      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно" data-close></button>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
   </div>
 

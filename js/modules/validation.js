@@ -89,6 +89,5 @@ const validateFormOnOpen = (settings) => {
 
 export {
   enableFormsValidation,
-  validateFormOnOpen,
-  toggleSubmitButton
+  validateFormOnOpen
 }
