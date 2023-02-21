@@ -1,54 +1,3 @@
-const setFormValidation = ({form, inputSelector, inputErrorClass, submitButtonSelector, minLength}) => {
-  const
-    inputList = form.querySelectorAll(inputSelector),
-    button = form.querySelector(submitButtonSelector)
-
-  form.addEventListener('submit', e => e.preventDefault())
-  inputList.forEach(input => {
-    input.addEventListener('input', e => {
-      const input = e.target
-      validateForm(form, inputList, input, inputErrorClass, button, minLength)
-    })
-  })
-  toggleSubmitButton(inputList, button, minLength)
-}
-
-const validateForm = (form, inputList, input, inputErrorClass, button, minLength) => {
-  validateInput(form, input, inputErrorClass, minLength)
-  toggleSubmitButton(inputList, button, minLength)
-}
-
-const validateInput = (form, input, inputErrorClass, minLength) => {
-  const isInputValid = checkInputValidity(input, minLength)
-  isInputValid
-    ? toggleInputError(true, form, input, inputErrorClass)
-    : toggleInputError(false, form, input, inputErrorClass)
-}
-
-const toggleInputError = (state, form, input, inputErrorClass) => {
-  const errorElement = form.querySelector(`.${input.name}-error`)
-  if (state) {
-    errorElement.textContent = ''
-    input.classList.remove(inputErrorClass)
-  }
-  else {
-    errorElement.textContent = input.validationMessage
-    input.classList.add(inputErrorClass)
-  }
-}
-
-const toggleSubmitButton = (inputList, button, minLength) => {
-  button.disabled = !isFormValid(inputList, minLength)
-}
-
-const isFormValid = (inputList, minLength) => (
-  [...inputList].every(input => checkInputValidity(input, minLength))
-)
-
-const checkInputValidity = (input, minLength) => (
-  input.validity.valid && input.value.trim().length >= minLength
-)
-
 /**
  * Adds validation listeners to all forms with the provided selector.
  *
@@ -86,6 +35,57 @@ const validateFormOnOpen = (settings) => {
     validateForm(form, inputList, input, inputErrorClass, button, minLength)
   })
 }
+
+const setFormValidation = ({form, inputSelector, inputErrorClass, submitButtonSelector, minLength}) => {
+  const
+    inputList = form.querySelectorAll(inputSelector),
+    button = form.querySelector(submitButtonSelector)
+
+  form.addEventListener('submit', e => e.preventDefault())
+  inputList.forEach(input => {
+    input.addEventListener('input', e => {
+      const input = e.target
+      validateForm(form, inputList, input, inputErrorClass, button, minLength)
+    })
+  })
+  toggleSubmitButton(inputList, button, minLength)
+}
+
+const validateForm = (form, inputList, input, inputErrorClass, button, minLength) => {
+  validateInput(form, input, inputErrorClass, minLength)
+  toggleSubmitButton(inputList, button, minLength)
+}
+
+const validateInput = (form, input, inputErrorClass, minLength) => {
+  const isInputValid = checkInputValidity(input, minLength)
+  isInputValid
+    ? toggleInputError(true, form, input, inputErrorClass)
+    : toggleInputError(false, form, input, inputErrorClass)
+}
+
+const checkInputValidity = (input, minLength) => (
+  input.validity.valid && input.value.trim().length >= minLength
+)
+
+const toggleInputError = (state, form, input, inputErrorClass) => {
+  const errorElement = form.querySelector(`.${input.name}-error`)
+  if (state) {
+    errorElement.textContent = ''
+    input.classList.remove(inputErrorClass)
+  }
+  else {
+    errorElement.textContent = input.validationMessage
+    input.classList.add(inputErrorClass)
+  }
+}
+
+const toggleSubmitButton = (inputList, button, minLength) => {
+  button.disabled = !isFormValid(inputList, minLength)
+}
+
+const isFormValid = (inputList, minLength) => (
+  [...inputList].every(input => checkInputValidity(input, minLength))
+)
 
 export {
   enableFormsValidation,
