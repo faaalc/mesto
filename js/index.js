@@ -4,7 +4,7 @@ import {enableFormsValidation, validateFormOnOpen} from "./modules/validation.js
 import {initialCards} from './data.js';
 
 const
-  popupCloseElements = document.querySelectorAll('.popup, .popup__close'),
+  popups = document.querySelectorAll('.popup'),
   gallery = document.querySelector('.gallery'),
   popupEdit = {
     popup: document.querySelector('.popup_type_edit'),
@@ -18,8 +18,7 @@ const
   popupAdd = {
     popup: document.querySelector('.popup_type_add'),
     form: document.querySelector('.popup__form_add-card'),
-    openBtn: document.querySelector('.profile__add-button'),
-    saveBtn: document.querySelector('input')
+    openBtn: document.querySelector('.profile__add-button')
   },
   popupImage = {
     popup: document.querySelector('.popup_type_image'),
@@ -105,11 +104,11 @@ enableFormsValidation(formValidationSettings)
 
 
 //Adding closePopup listeners on buttons and overlay
-popupCloseElements.forEach(el => {
-  el.addEventListener('click', e => {
+popups.forEach(popup => {
+  popup.addEventListener('mousedown', e => {
     e.stopPropagation()
     if (e.target.classList.contains('popup') || e.target.classList.contains('popup__close')) {
-      closePopup(e.target.closest('.popup'))
+      closePopup(popup)
     }
   })
 })
