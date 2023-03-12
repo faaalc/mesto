@@ -14,6 +14,26 @@ class Card {
     this._imageAction = imageAction
   }
 
+  /**
+   * Generates and returns HTML card element
+   * @returns {HTMLElement} HTML Card Element
+   */
+  generateCard() {
+    this._element = this._getTemplate()
+    this._likeButton = this._element.querySelector('.card__like-button')
+    this._deleteButton = this._element.querySelector('.card__delete-button')
+    this._cardImage = this._element.querySelector('.card__photo')
+    const cardLocation = this._element.querySelector('.card__location')
+
+    this._setListeners()
+
+    cardLocation.textContent = this._name
+    this._cardImage.src = this._src
+    this._cardImage.alt = this._name
+
+    return this._element
+  }
+
   _getTemplate() {
     return document
       .querySelector(this._templateSelector)
@@ -38,26 +58,6 @@ class Card {
       this._checkTarget(e, this._deleteButton) && this._handleDeleteCard()
       this._imageAction && this._checkTarget(e, this._cardImage) && this._imageAction(e)
     })
-  }
-
-  /**
-   * Generates and returns HTML card element
-   * @returns {HTMLElement} HTML Card Element
-   */
-  generateCard() {
-    this._element = this._getTemplate()
-    this._likeButton = this._element.querySelector('.card__like-button')
-    this._deleteButton = this._element.querySelector('.card__delete-button')
-    this._cardImage = this._element.querySelector('.card__photo')
-    const cardLocation = this._element.querySelector('.card__location')
-
-    this._setListeners()
-
-    cardLocation.textContent = this._name
-    this._cardImage.src = this._src
-    this._cardImage.alt = this._name
-
-    return this._element
   }
 }
 

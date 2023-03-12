@@ -54,6 +54,7 @@ const openPopup = popup => {
   document.addEventListener('keydown', closePopupOnEscape)
 }
 
+
 //popupImage open
 const openImagePopup = e => {
   openPopup(popupImage.popup)
@@ -62,6 +63,7 @@ const openImagePopup = e => {
   popupImage.location.textContent = e.target.alt
 }
 
+
 //popupEdit open and submit
 const openEditPopup = popup => {
   openPopup(popup)
@@ -69,7 +71,7 @@ const openEditPopup = popup => {
   popupEdit.descriptionInput.value = popupEdit.profileDescription.textContent
 
   //checking the validity when opening
-  const validator = new FormValidator(formValidationSettings, popup)
+  const validator = new FormValidator(formValidationSettings, popupEdit.form)
   validator.validateFormOnOpen()
 }
 const handleChangesEditPopup = e => {
@@ -78,6 +80,7 @@ const handleChangesEditPopup = e => {
   popupEdit.profileDescription.textContent = description.value.trim()
   closePopup(popupEdit.popup)
 }
+
 
 //popupAdd submit with validation
 const handleSubmitPopupAdd = e => {
@@ -98,14 +101,6 @@ const resetPopupAdd = (e, button) => {
   button.disabled = true
 }
 
-//Adding validation on every form
-// enableFormsValidation(formValidationSettings)
-forms.forEach(form => {
-  const validator = new FormValidator(formValidationSettings, form)
-  validator.enableValidation()
-})
-
-
 
 //Adding closePopup listeners on buttons and overlay
 popups.forEach(popup => {
@@ -117,6 +112,7 @@ popups.forEach(popup => {
   })
 })
 
+
 //Adding popupEdit listeners
 popupEdit.openBtn.addEventListener('click', () => openEditPopup(popupEdit.popup))
 popupEdit.form.addEventListener('submit', handleChangesEditPopup)
@@ -124,6 +120,14 @@ popupEdit.form.addEventListener('submit', handleChangesEditPopup)
 // Adding popupAdd listeners
 popupAdd.openBtn.addEventListener('click', () => openPopup(popupAdd.popup))
 popupAdd.form.addEventListener('submit', handleSubmitPopupAdd)
+
+
+//Adding validation listeners on every form
+forms.forEach(form => {
+  const validator = new FormValidator(formValidationSettings, form)
+  validator.enableValidation()
+})
+
 
 //Adding cards to page form data
 initialCards.forEach(cardData => {

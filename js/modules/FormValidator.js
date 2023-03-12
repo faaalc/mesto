@@ -1,4 +1,12 @@
 class FormValidator {
+  /**
+   * @param {Object} settings Required selectors
+   * @param {string} settings.inputSelector Inputs selector
+   * @param {string} settings.submitButtonSelector Submit button selector
+   * @param {string} settings.inputErrorClass Error modifier class for the input
+   * @param {number} settings.minLength Input minimum length with trim
+   * @param {HTMLFormElement} form Form element
+   */
   constructor(settings, form) {
     this._inputSelector = settings.inputSelector
     this._submitButtonSelector = settings.submitButtonSelector
@@ -9,6 +17,9 @@ class FormValidator {
     this._button = this._form.querySelector(this._submitButtonSelector)
   }
 
+  /**
+   * Adds validation listeners to the provided form.
+   */
   enableValidation() {
     this._form.addEventListener('submit', e => e.preventDefault())
     this._inputList.forEach(input => {
@@ -20,6 +31,9 @@ class FormValidator {
     this._toggleSubmitButton()
   }
 
+  /**
+   * Validating the form on open
+   */
   validateFormOnOpen() {
     this._inputList.forEach(input => {
       this._validateForm(input)
