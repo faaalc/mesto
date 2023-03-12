@@ -32,7 +32,8 @@ const
     submitButtonSelector: '.popup__save',
     inputErrorClass: 'popup__input_type_error',
     minLength: 2
-  };
+  },
+  editFormValidator = new FormValidator(formValidationSettings, popupEdit.form)
 
 
 
@@ -71,8 +72,7 @@ const openEditPopup = popup => {
   popupEdit.descriptionInput.value = popupEdit.profileDescription.textContent
 
   //checking the validity when opening
-  const validator = new FormValidator(formValidationSettings, popupEdit.form)
-  validator.validateFormOnOpen()
+  editFormValidator.validateFormOnOpen()
 }
 const handleChangesEditPopup = e => {
   const {name, description} = e.target.elements
