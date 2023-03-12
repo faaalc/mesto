@@ -1,10 +1,12 @@
-import generateCard from './modules/card.js';
+import Card from "./modules/Card.js";
+import FormValidator from "./modules/FormValidator.js";
 import {prependElement} from './utils.js';
-import {enableFormsValidation, validateFormOnOpen} from "./modules/validation.js";
 import {initialCards} from './data.js';
+
 
 const
   popups = document.querySelectorAll('.popup'),
+  forms = document.querySelectorAll('.popup__form'),
   gallery = document.querySelector('.gallery'),
   popupEdit = {
     popup: document.querySelector('.popup_type_edit'),
@@ -26,7 +28,6 @@ const
     location: document.querySelector('.popup__location')
   },
   formValidationSettings = {
-    formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__save',
     inputErrorClass: 'popup__input_type_error',
@@ -68,11 +69,8 @@ const openEditPopup = popup => {
   popupEdit.descriptionInput.value = popupEdit.profileDescription.textContent
 
   //checking the validity when opening
-  const validationSettings = {
-    ...formValidationSettings,
-    form: popup
-  }
-  validateFormOnOpen(validationSettings)
+  const validator = new FormValidator(formValidationSettings, popup)
+  validator.validateFormOnOpen()
 }
 const handleChangesEditPopup = e => {
   const {name, description} = e.target.elements
@@ -89,7 +87,9 @@ const handleSubmitPopupAdd = e => {
     link: link.value
   }
   closePopup(popupAdd.popup)
-  prependElement(generateCard(data, openImagePopup), gallery)
+
+  const card = new Card(data, '#card', openImagePopup)
+  prependElement(card.generateCard(), gallery)
   resetPopupAdd(e, button)
 }
 const resetPopupAdd = (e, button) => {
@@ -99,7 +99,11 @@ const resetPopupAdd = (e, button) => {
 }
 
 //Adding validation on every form
-enableFormsValidation(formValidationSettings)
+// enableFormsValidation(formValidationSettings)
+forms.forEach(form => {
+  const validator = new FormValidator(formValidationSettings, form)
+  validator.enableValidation()
+})
 
 
 
@@ -122,4 +126,7 @@ popupAdd.openBtn.addEventListener('click', () => openPopup(popupAdd.popup))
 popupAdd.form.addEventListener('submit', handleSubmitPopupAdd)
 
 //Adding cards to page form data
-initialCards.forEach(card => prependElement(generateCard(card, openImagePopup), gallery))
+initialCards.forEach(cardData => {
+  const card = new Card(cardData, '#card', openImagePopup)
+  prependElement(card.generateCard(), gallery)
+})
