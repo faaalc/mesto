@@ -43,6 +43,7 @@
 @import url(../blocks/popup/__full-screen-image/popup__full-screen-image.css);
 @import url(../blocks/popup/__location/popup__location.css);
 @import url(../blocks/popup/_dark/popup_dark.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 
 @import url(../blocks/show/show.css);
 @import url(../blocks/hide/hide.css);

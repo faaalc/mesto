@@ -21,13 +21,7 @@ class FormValidator {
    * Adds validation listeners to the provided form.
    */
   enableValidation() {
-    this._form.addEventListener('submit', e => e.preventDefault())
-    this._inputList.forEach(input => {
-      input.addEventListener('input', e => {
-        const input = e.target
-        this._validateForm(input)
-      })
-    })
+    this._setListeners()
     this._toggleSubmitButton()
   }
 
@@ -37,6 +31,24 @@ class FormValidator {
   validateFormOnOpen() {
     this._inputList.forEach(input => {
       this._validateForm(input)
+    })
+  }
+
+  /**
+   * Resetting the form after submit
+   */
+  resetForm() {
+    this._form.reset()
+    this._button.disabled = true
+  }
+
+  _setListeners() {
+    this._form.addEventListener('submit', e => e.preventDefault())
+    this._inputList.forEach(input => {
+      input.addEventListener('input', e => {
+        const input = e.target
+        this._validateForm(input)
+      })
     })
   }
 

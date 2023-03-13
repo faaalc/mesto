@@ -1,0 +1,3 @@
+.popup_opened {
+  animation: show var(--popup-animation);
+}

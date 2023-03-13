@@ -33,26 +33,28 @@ const
     inputErrorClass: 'popup__input_type_error',
     minLength: 2
   },
-  editFormValidator = new FormValidator(formValidationSettings, popupEdit.form)
+  formValidators = {}
 
 
 
-//Popup general functions
+//General functions
 const closePopup = popup => {
-  popup.classList.add('hide')
-  popup.classList.remove('show')
+  popup.classList.remove('popup_opened')
   document.removeEventListener('keydown', closePopupOnEscape)
 }
 const closePopupOnEscape = e => {
   if (e.key === 'Escape') {
-    const popup = document.querySelector('.show')
+    const popup = document.querySelector('.popup_opened')
     closePopup(popup)
   }
 }
 const openPopup = popup => {
-  popup.classList.remove('hide')
-  popup.classList.add('show')
+  popup.classList.add('popup_opened')
   document.addEventListener('keydown', closePopupOnEscape)
+}
+const createCard = data => {
+  const card = new Card(data, '#card', openImagePopup)
+  return card.generateCard()
 }
 
 
@@ -72,7 +74,7 @@ const openEditPopup = popup => {
   popupEdit.descriptionInput.value = popupEdit.profileDescription.textContent
 
   //checking the validity when opening
-  editFormValidator.validateFormOnOpen()
+  formValidators['edit-description'].validateFormOnOpen()
 }
 const handleChangesEditPopup = e => {
   const {name, description} = e.target.elements
@@ -84,21 +86,15 @@ const handleChangesEditPopup = e => {
 
 //popupAdd submit with validation
 const handleSubmitPopupAdd = e => {
-  const {place, link, button} = e.target.elements
+  const {place, link} = e.target.elements
   const data = {
     name: place.value,
     link: link.value
   }
-  closePopup(popupAdd.popup)
 
-  const card = new Card(data, '#card', openImagePopup)
-  prependElement(card.generateCard(), gallery)
-  resetPopupAdd(e, button)
-}
-const resetPopupAdd = (e, button) => {
-  //resetting form and disabling button
-  e.target.reset()
-  button.disabled = true
+  closePopup(popupAdd.popup)
+  prependElement(createCard(data), gallery)
+  formValidators['add-card'].resetForm()
 }
 
 
@@ -123,14 +119,18 @@ popupAdd.form.addEventListener('submit', handleSubmitPopupAdd)
 
 
 //Adding validation listeners on every form
-forms.forEach(form => {
-  const validator = new FormValidator(formValidationSettings, form)
-  validator.enableValidation()
-})
+const enableValidation = settings => {
+  forms.forEach(form => {
+    const validator = new FormValidator(settings, form)
+    const formName = form.getAttribute('name')
+    formValidators[formName] = validator
+    validator.enableValidation()
+  })
+}
+enableValidation(formValidationSettings)
 
 
 //Adding cards to page form data
 initialCards.forEach(cardData => {
-  const card = new Card(cardData, '#card', openImagePopup)
-  prependElement(card.generateCard(), gallery)
+  prependElement(createCard(cardData), gallery)
 })

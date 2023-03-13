@@ -11,4 +11,5 @@
   opacity: 0;
   transition: var(--transition-opacity);
   visibility: hidden;
+  animation: hide var(--popup-animation);
 }
