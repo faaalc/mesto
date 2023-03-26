@@ -15,7 +15,7 @@ export const formValidationSettings = {
   minLength: 2
 }
 export const popupConfig = {
-  openedSelector: 'popup_opened',
+  openedClass: 'popup_opened',
   closeButtonSelector: 'popup__close'
 }
 export const formValidators = {}
