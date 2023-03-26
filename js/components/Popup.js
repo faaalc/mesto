@@ -1,7 +1,7 @@
 class Popup {
-  constructor({popupSelector, openedSelector, closeButtonSelector}) {
+  constructor({popupSelector, openedClass, closeButtonSelector}) {
     this._popupSelector = popupSelector
-    this._openedClass = openedSelector
+    this._openedClass = openedClass
     this._closeButtonSelector = closeButtonSelector
     this._popup = document.querySelector(`.${this._popupSelector}`)
   }
