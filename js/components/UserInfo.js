@@ -1,18 +1,22 @@
 class UserInfo {
   constructor({userNameSelector, userInfoSelector}) {
-    this._userName = document.querySelector(`.${userNameSelector}`)
-    this._userInfo = document.querySelector(`.${userInfoSelector}`)
+    this._data = {
+      name: document.querySelector(`.${userNameSelector}`),
+      info: document.querySelector(`.${userInfoSelector}`)
+    }
   }
 
   getUserInfo = () => {
-    return {
-      name: this._userName.textContent,
-      info: this._userInfo.textContent
+    const data = {}
+    for (const key in this._data) {
+      data[key] = this._data[key].textContent
     }
+    return data
   }
-  setUserInfo = ({name, info}) => {
-    this._userName.textContent = name
-    this._userInfo.textContent = info
+  setUserInfo = (data) => {
+    for (const key in data) {
+      this._data[key].textContent = data[key]
+    }
   }
 
 }

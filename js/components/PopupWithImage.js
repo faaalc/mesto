@@ -1,7 +1,7 @@
 import Popup from "./Popup.js";
 class PopupWithImage extends Popup {
-  constructor(config, {imageSelector, locationSelector}) {
-    super(config);
+  constructor({initialConfig, imageSelector, locationSelector}) {
+    super(initialConfig);
     this._image = document.querySelector(`.${imageSelector}`)
     this._location = document.querySelector(`.${locationSelector}`)
   }

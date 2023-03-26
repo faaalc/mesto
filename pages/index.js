@@ -35,8 +35,8 @@ const openEditPopup = () => {
   formValidators['edit-description'].validateFormOnOpen()
 }
 const handleSubmitPopupEdit = ({name, description}) => {
-  userInfo.setUserInfo({name: name.trim(), info: description.trim()})
   editPopup.close()
+  userInfo.setUserInfo({name: name.trim(), info: description.trim()})
 }
 const handleSubmitPopupAdd = ({place, link}) => {
   addPopup.close()
@@ -62,25 +62,28 @@ cardList.render()
 
 //Popups instances
 const editPopup = new PopupWithForm({
-  ...popupConfig,
-  popupSelector: 'popup_type_edit',
-}, {
+  initialConfig: {
+    ...popupConfig,
+    popupSelector: 'popup_type_edit',
+  },
   handleSubmit: handleSubmitPopupEdit,
   formSelector: 'popup__form_edit-description'
 })
 
 const addPopup = new PopupWithForm({
-  ...popupConfig,
-  popupSelector: 'popup_type_add',
-}, {
+  initialConfig: {
+    ...popupConfig,
+    popupSelector: 'popup_type_add'
+  },
   handleSubmit: handleSubmitPopupAdd,
   formSelector: 'popup__form_add-card'
 })
 
 const imagePopup = new PopupWithImage({
-  ...popupConfig,
-  popupSelector: 'popup_type_image'
-}, {
+  initialConfig: {
+    ...popupConfig,
+    popupSelector: 'popup_type_image'
+  },
   imageSelector: 'popup__full-screen-image',
   locationSelector: 'popup__location'
 })
