@@ -15,6 +15,7 @@ import {
   gallery
 }
   from "../js/consts.js";
+import './index.css'
 
 
 //General functions
