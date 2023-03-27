@@ -57,7 +57,10 @@ class Card {
     this._element.addEventListener('click', e => {
       this._checkTarget(e, this._buttonLike) && this._handleLikeCard()
       this._checkTarget(e, this._buttonDelete) && this._handleDeleteCard()
-      this._handleImageClick && this._checkTarget(e, this._cardImage) && this._handleImageClick(e)
+      this._handleImageClick && this._checkTarget(e, this._cardImage) && this._handleImageClick({
+        name: this._name,
+        link: this._src
+      })
     })
   }
 }

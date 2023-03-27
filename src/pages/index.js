@@ -20,7 +20,10 @@ import './index.css'
 
 //General functions
 const createCard = data => {
-  const card = new Card(data, '#card', (e) => handleOpenPopupImage(e))
+  const card = new Card(
+    data,
+    '#card',
+    (data) => popupImageInstance.open(data))
   return card.generateCard()
 }
 
@@ -43,13 +46,6 @@ const handleSubmitPopupAdd = ({place, link}) => {
   popupAddInstance.close()
   cardsSection.addItem(createCard({link, name: place}))
   formValidators['add-card'].disableSubmitButton()
-}
-const handleOpenPopupImage = e => {
-  const data = {
-    name: e.target.alt,
-    link: e.target.src
-  }
-  popupImageInstance.open(data)
 }
 
 
