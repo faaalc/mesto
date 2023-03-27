@@ -6,12 +6,12 @@ import UserInfo from "../js/components/UserInfo.js";
 import PopupWithImage from "../js/components/PopupWithImage.js";
 import {initialCards} from '../js/data.js';
 import {
-  popupEdit,
-  popupAdd,
+  popupEditElements,
+  popupAddElements,
   forms,
   formValidators,
   formValidationSettings,
-  popupConfig,
+  basePopupConfig,
   gallery
 }
   from "../js/consts.js";
@@ -20,29 +20,36 @@ import './index.css'
 
 //General functions
 const createCard = data => {
-  const card = new Card(data, '#card', (e) => imagePopup.open(e))
+  const card = new Card(data, '#card', (e) => handleOpenPopupImage(e))
   return card.generateCard()
 }
 
 
 //callbacks
 const openEditPopup = () => {
-  editPopup.open()
+  popupEditInstance.open()
   const {name, info} = userInfo.getUserInfo()
-  popupEdit.nameInput.value = name
-  popupEdit.descriptionInput.value = info
+  popupEditElements.nameInput.value = name
+  popupEditElements.descriptionInput.value = info
 
   //checking the validity when opening
-  formValidators['edit-description'].validateFormOnOpen()
+  formValidators['edit-description'].forceValidateForm()
 }
 const handleSubmitPopupEdit = ({name, description}) => {
-  editPopup.close()
+  popupEditInstance.close()
   userInfo.setUserInfo({name: name.trim(), info: description.trim()})
 }
 const handleSubmitPopupAdd = ({place, link}) => {
-  addPopup.close()
-  cardList.addItem(createCard({link, name: place}))
-  formValidators['add-card'].resetForm()
+  popupAddInstance.close()
+  cardsSection.addItem(createCard({link, name: place}))
+  formValidators['add-card'].disableSubmitButton()
+}
+const handleOpenPopupImage = e => {
+  const data = {
+    name: e.target.alt,
+    link: e.target.src
+  }
+  popupImageInstance.open(data)
 }
 
 
@@ -52,50 +59,50 @@ const userInfo = new UserInfo({
 })
 
 //Adding cards to page form data
-const cardList = new Section({
+const cardsSection = new Section({
   items: initialCards,
   renderer: (data) => {
-    cardList.addItem(createCard(data))
+    cardsSection.addItem(createCard(data))
   }
 }, gallery)
-cardList.render()
+cardsSection.render()
 
 
 //Popups instances
-const editPopup = new PopupWithForm({
-  initialConfig: {
-    ...popupConfig,
+const popupEditInstance = new PopupWithForm({
+  baseConfig: {
+    ...basePopupConfig,
     popupSelector: 'popup_type_edit',
   },
   handleSubmit: handleSubmitPopupEdit,
   formSelector: 'popup__form_edit-description'
 })
 
-const addPopup = new PopupWithForm({
-  initialConfig: {
-    ...popupConfig,
+const popupAddInstance = new PopupWithForm({
+  baseConfig: {
+    ...basePopupConfig,
     popupSelector: 'popup_type_add'
   },
   handleSubmit: handleSubmitPopupAdd,
   formSelector: 'popup__form_add-card'
 })
 
-const imagePopup = new PopupWithImage({
-  initialConfig: {
-    ...popupConfig,
+const popupImageInstance = new PopupWithImage({
+  baseConfig: {
+    ...basePopupConfig,
     popupSelector: 'popup_type_image'
   },
   imageSelector: 'popup__full-screen-image',
   locationSelector: 'popup__location'
 })
 
-addPopup.activateListeners()
-editPopup.activateListeners()
-imagePopup.activateListeners()
+popupAddInstance.activateListeners()
+popupEditInstance.activateListeners()
+popupImageInstance.activateListeners()
 
 
-popupEdit.openBtn.addEventListener('click', openEditPopup)
-popupAdd.openBtn.addEventListener('click', () => addPopup.open())
+popupEditElements.openBtn.addEventListener('click', openEditPopup)
+popupAddElements.openBtn.addEventListener('click', () => popupAddInstance.open())
 
 
 //Adding validation listeners on every form

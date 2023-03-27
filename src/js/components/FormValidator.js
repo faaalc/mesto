@@ -4,14 +4,12 @@ class FormValidator {
    * @param {string} settings.inputSelector Inputs selector
    * @param {string} settings.submitButtonSelector Submit button selector
    * @param {string} settings.inputErrorClass Error modifier class for the input
-   * @param {number} settings.minLength Input minimum length with trim
    * @param {HTMLFormElement} form Form element
    */
   constructor(settings, form) {
     this._inputSelector = settings.inputSelector
     this._submitButtonSelector = settings.submitButtonSelector
     this._inputErrorClass = settings.inputErrorClass
-    this._minLength = settings.minLength
     this._form = form
     this._inputList = this._form.querySelectorAll(this._inputSelector)
     this._button = this._form.querySelector(this._submitButtonSelector)
@@ -28,7 +26,7 @@ class FormValidator {
   /**
    * Validating the form on open
    */
-  validateFormOnOpen() {
+  forceValidateForm() {
     this._inputList.forEach(input => {
       this._validateForm(input)
     })
@@ -37,13 +35,11 @@ class FormValidator {
   /**
    * Resetting the form after submit
    */
-  resetForm() {
-    this._form.reset()
+  disableSubmitButton() {
     this._button.disabled = true
   }
 
   _setListeners() {
-    this._form.addEventListener('submit', e => e.preventDefault())
     this._inputList.forEach(input => {
       input.addEventListener('input', e => {
         const input = e.target
@@ -59,13 +55,11 @@ class FormValidator {
 
   _validateInput(input) {
     const isInputValid = this._checkInputValidity(input)
-    isInputValid
-      ? this._toggleInputError(true, input)
-      : this._toggleInputError(false, input)
+    this._toggleInputError(isInputValid, input)
   }
 
   _checkInputValidity(input) {
-   return input.validity.valid && input.value.trim().length >= this._minLength
+   return input.validity.valid
   }
 
   _toggleInputError(state, input) {

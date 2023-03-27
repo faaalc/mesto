@@ -5,13 +5,13 @@ class Card {
    * @param {string} data.name Location
    * @param {string} data.link Image link
    * @param {string} templateSelector Card template selector
-   * @param {Function} [imageAction] Optional callback for image actions
+   * @param {Function} [handleImageClick] Optional callback for image actions
    */
-  constructor(data, templateSelector, imageAction) {
+  constructor(data, templateSelector, handleImageClick) {
     this._name = data.name
     this._src = data.link
     this._templateSelector = templateSelector
-    this._imageAction = imageAction
+    this._handleImageClick = handleImageClick
   }
 
   /**
@@ -20,8 +20,8 @@ class Card {
    */
   generateCard() {
     this._element = this._getTemplate()
-    this._likeButton = this._element.querySelector('.card__like-button')
-    this._deleteButton = this._element.querySelector('.card__delete-button')
+    this._buttonLike = this._element.querySelector('.card__like-button')
+    this._buttonDelete = this._element.querySelector('.card__delete-button')
     this._cardImage = this._element.querySelector('.card__photo')
     const cardLocation = this._element.querySelector('.card__location')
 
@@ -43,20 +43,21 @@ class Card {
   }
 
   _handleLikeCard() {
-    this._likeButton.classList.toggle('card__like-button_active')
+    this._buttonLike.classList.toggle('card__like-button_active')
   }
 
   _handleDeleteCard() {
     this._element.remove()
+    this._element = null
   }
 
   _checkTarget = (e, element) => e.target === element
 
   _setListeners() {
     this._element.addEventListener('click', e => {
-      this._checkTarget(e, this._likeButton) && this._handleLikeCard()
-      this._checkTarget(e, this._deleteButton) && this._handleDeleteCard()
-      this._imageAction && this._checkTarget(e, this._cardImage) && this._imageAction(e)
+      this._checkTarget(e, this._buttonLike) && this._handleLikeCard()
+      this._checkTarget(e, this._buttonDelete) && this._handleDeleteCard()
+      this._handleImageClick && this._checkTarget(e, this._cardImage) && this._handleImageClick(e)
     })
   }
 }
