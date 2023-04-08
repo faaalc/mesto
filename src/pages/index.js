@@ -70,8 +70,7 @@ const popupEditInstance = new PopupWithForm({
     ...basePopupConfig,
     popupSelector: 'popup_type_edit',
   },
-  handleSubmit: handleSubmitPopupEdit,
-  formSelector: 'popup__form_edit-description'
+  handleSubmit: handleSubmitPopupEdit
 })
 
 const popupAddInstance = new PopupWithForm({
@@ -79,8 +78,7 @@ const popupAddInstance = new PopupWithForm({
     ...basePopupConfig,
     popupSelector: 'popup_type_add'
   },
-  handleSubmit: handleSubmitPopupAdd,
-  formSelector: 'popup__form_add-card'
+  handleSubmit: handleSubmitPopupAdd
 })
 
 const popupImageInstance = new PopupWithImage({

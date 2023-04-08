@@ -6,12 +6,11 @@ class PopupWithForm extends Popup {
    * @param {string} baseConfig.openedClass Opened modifier
    * @param {string} baseConfig.buttonCloseSelector Button close selector
    * @param {Function} handleSubmit Callback for form submit
-   * @param {string} formSelector Form selector
    */
-  constructor({baseConfig, handleSubmit, formSelector}) {
+  constructor({baseConfig, handleSubmit}) {
     super(baseConfig);
     this._handleSubmit = handleSubmit
-    this._form = document.querySelector(`.${formSelector}`)
+    this._form = this._popup.querySelector(`form`)
     this._inputList = this._form.querySelectorAll('input')
   }
 
