@@ -1,22 +1,26 @@
 class UserInfo {
-  constructor({userNameSelector, userInfoSelector}) {
-    this._data = {
-      name: document.querySelector(`.${userNameSelector}`),
-      info: document.querySelector(`.${userInfoSelector}`)
-    }
+  constructor({userNameSelector, userInfoSelector, userAvatarSelector}) {
+    this._name = document.querySelector(`.${userNameSelector}`)
+    this._about = document.querySelector(`.${userInfoSelector}`)
+    this._avatar = document.querySelector(`.${userAvatarSelector}`)
+    this._id = ''
   }
 
   getUserInfo = () => {
-    const data = {}
-    for (const key in this._data) {
-      data[key] = this._data[key].textContent
+    return {
+      name: this._name.textContent,
+      about: this._about.textContent,
+      avatar: this._avatar.src
     }
-    return data
   }
-  setUserInfo = (data) => {
-    for (const key in data) {
-      this._data[key].textContent = data[key]
-    }
+  getUserId = () => {
+    return this._id
+  }
+  setUserInfo = ({name, about, avatar, _id}) => {
+    this._name.textContent = name
+    this._about.textContent = about
+    this._avatar.src = avatar
+    this._id = _id
   }
 
 }

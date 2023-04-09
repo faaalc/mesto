@@ -12,11 +12,14 @@
 </header>
   <main class="main">
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/profile/avatar.jpg')%>" alt="Аватарка">
+      <div class="profile__avatar-container">
+        <img class="profile__avatar" src="#" alt="Аватарка">
+        <div class="profile__avatar-edit"></div>
+      </div>
       <div class="profile__info">
-        <h1 class="profile__name">Данил Непомнящий</h1>
+        <h1 class="profile__name"></h1>
         <button class="button profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
-        <p class="profile__description">Веб-разработчик</p>
+        <p class="profile__description"></p>
       </div>
       <button class="button profile__add-button" type="button" aria-label="Добавить пост"></button>
     </section>
@@ -32,7 +35,7 @@
       <form method="post"
             action="#"
             name="edit-description"
-            class="popup__form popup__form_edit-description"
+            class="popup__form"
             novalidate
             autocomplete="off">
 
@@ -49,13 +52,13 @@
 
         <label class="popup__field">
           <input type="text"
-                 class="popup__input popup__input_type_description"
-                 name="description"
+                 class="popup__input popup__input_type_about"
+                 name="about"
                  placeholder="О себе"
                  minlength="2"
                  maxlength="200"
                  required>
-          <span class="popup__input-error description-error"></span>
+          <span class="popup__input-error about-error"></span>
         </label>
 
         <button class="button popup__save" type="submit" aria-label="Сохранить изменения">Сохранить</button>
@@ -70,7 +73,7 @@
       <form method="post"
             action="#"
             name="add-card"
-            class="popup__form popup__form_add-card"
+            class="popup__form"
             novalidate
             autocomplete="off">
 
@@ -108,12 +111,54 @@
     </div>
   </div>
 
+  <div class="popup popup_type_confirm-delete">
+    <div class="popup__container">
+      <form method="post"
+            action="#"
+            name="confirm-delete"
+            class="popup__form"
+            novalidate
+            autocomplete="off">
+        <h2 class="popup__title">Вы уверены?</h2>
+        <input type="hidden" name="id" class="popup__input_type_card-id">
+        <button class="button popup__save no-margin" type="submit" aria-label="Удалить карточку" name="button">Да</button>
+      </form>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_type_avatar">
+    <div class="popup__container">
+      <form method="post"
+            action="#"
+            name="change-avatar"
+            class="popup__form"
+            novalidate
+            autocomplete="off">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <label class="popup__field">
+          <input type="url"
+                 class="popup__input"
+                 name="avatar"
+                 placeholder="Ссылка на аватар"
+                 required>
+          <span class="popup__input-error avatar-error"></span>
+        </label>
+        <button class="button popup__save" type="submit" aria-label="Сохранить аватарку" name="button">Сохранить</button>
+      </form>
+      <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
+    </div>
+  </div>
+
   <template id="card">
     <div class="card">
       <img src="#" alt="#" class="card__photo">
       <div class="card__description">
         <h2 class="card__location"></h2>
-        <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
+        <div class="card__like">
+          <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
+          <p class="card__likes"></p>
+        </div>
       </div>
       <button class="button card__delete-button" type="button" aria-label="Удалить пост"></button>
     </div>

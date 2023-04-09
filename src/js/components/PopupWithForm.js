@@ -11,6 +11,7 @@ class PopupWithForm extends Popup {
     super(baseConfig);
     this._handleSubmit = handleSubmit
     this._form = this._popup.querySelector(`form`)
+    this._buttonSubmit = this._form.querySelector('button')
     this._inputList = this._form.querySelectorAll('input')
   }
 
@@ -32,6 +33,17 @@ class PopupWithForm extends Popup {
     this._form.reset()
     super.close()
   }
+
+  setLoading(isLoading, text) {
+    if (isLoading) {
+      this._buttonSubmit.textContent = text
+      this._buttonSubmit.disabled = true
+    } else {
+      this._buttonSubmit.textContent = text
+      this._buttonSubmit.disabled = false
+    }
+  }
+
   _getInputValues = () => {
     const inputValues = {}
     this._inputList.forEach(input => {

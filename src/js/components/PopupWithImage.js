@@ -24,6 +24,13 @@ class PopupWithImage extends Popup {
     this._image.alt = name
     this._location.textContent = name
   }
+
+  close() {
+    super.close();
+    this._image.src = ''
+    this._image.alt = ''
+    this._location.textContent = ''
+  }
 }
 
 export default PopupWithImage
