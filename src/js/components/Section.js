@@ -31,6 +31,9 @@ class Section {
     this._container.prepend(element)
   }
 
+  /**
+   * Clears all section
+   */
   clearSection = () => {
     this._container.innerHTML = ''
   }

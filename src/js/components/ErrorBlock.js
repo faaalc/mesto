@@ -3,6 +3,10 @@ class ErrorBlock {
     this._text = text
     this._templateSelector = templateSelector
   }
+  /**
+   * Generates and returns HTML element
+   * @returns {HTMLElement} HTML ErrorBlock Element
+   */
   generateBlock() {
     this._element = this._getTemplate()
     const title = this._element.querySelector('.error-block__title')

@@ -34,6 +34,11 @@ class PopupWithForm extends Popup {
     super.close()
   }
 
+  /**
+   * Changes submit button text and disabled state
+   * @param {boolean} isLoading Is loading status
+   * @param {string} buttonText Button text
+   */
   setLoading(isLoading, buttonText) {
     if (isLoading) {
       this._buttonSubmit.textContent = buttonText

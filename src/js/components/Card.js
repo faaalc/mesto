@@ -63,14 +63,31 @@ class Card {
     return this._element
   }
 
+  /**
+   * Toggles like on card
+   * @param {Object} data
+   * @param {Array} data.likes
+   */
   toggleLike({ likes }) {
     this._likes = likes
     this._cardLikes.textContent = this._likes.length
     this._toggleStateButtonLike()
   }
 
+  /**
+   * Toggles disabled state of like button
+   * @param {boolean} isDisabled
+   */
   toggleDisableButtonLike(isDisabled) {
     this._buttonLike.disabled = isDisabled
+  }
+
+  /**
+   * Deletes card from page
+   */
+  deleteCard() {
+    this._element.remove()
+    this._element = null
   }
 
   _toggleStateButtonLike() {
@@ -78,11 +95,6 @@ class Card {
     this._isLiked
       ? this._buttonLike.classList.add('card__like-button_active')
       : this._buttonLike.classList.remove('card__like-button_active')
-  }
-
-  deleteCard() {
-    this._element.remove()
-    this._element = null
   }
 
   _getTemplate() {
