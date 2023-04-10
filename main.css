@@ -34,7 +34,8 @@
 .popup__input_type_error{border-bottom:1px solid red}
 .popup__input-error{color:red;font-size:12px;font-weight:400;left:0;line-height:12px;position:absolute;top:calc(100% + 5px);z-index:2}
 .popup__field{margin-bottom:17px;position:relative}.popup__field:last-of-type{margin-bottom:0}
-.popup__save{background-color:#000;border:1px solid transparent;border-radius:2px;color:var(--main-text-color);font-size:18px;font-weight:400;line-height:22px;margin-top:48px;padding:14px 125px;transition:var(--transition-opacity),var(--transition-bgc)}.popup__save:hover{opacity:.8}.popup__save:disabled{background-color:transparent;border:1px solid #000;color:#000;opacity:.2}@media screen and (max-width:767px){.popup__save{font-size:14px;line-height:17px;margin-top:45px;padding:14px 82px}}
+.popup__submit{background-color:#000;border:1px solid transparent;border-radius:2px;color:var(--main-text-color);font-size:18px;font-weight:400;line-height:22px;margin-top:48px;padding:14px 125px;transition:var(--transition-opacity),var(--transition-bgc)}.popup__submit:hover{opacity:.8}.popup__submit:disabled{background-color:transparent;border:1px solid #000;color:#000;opacity:.2}@media screen and (max-width:767px){.popup__submit{font-size:14px;line-height:17px;margin-top:45px;padding:14px 82px}}
+.popup__submit_confirm{margin:0}
 .popup__title{color:var(--popup-text-color);font-size:24px;font-weight:900;line-height:29px;margin:0 0 35px}@media screen and (max-width:767px){.popup__title{font-size:18px;line-height:22px;margin:0 0 60px}}
 .popup__form{display:flex;flex-direction:column}
 .popup__container_image{background-color:transparent;padding:0;width:auto}
@@ -44,5 +45,5 @@
 .popup_opened{animation:show var(--popup-animation)}
 @keyframes show{0%{opacity:0;visibility:hidden}to{opacity:1;visibility:visible}}.show{animation:show var(--popup-animation)}
 @keyframes hide{0%{opacity:1;visibility:visible}to{opacity:0;visibility:hidden}}.hide{animation:hide var(--popup-animation)}
-.no-margin{margin:0}
+.error-block__title{white-space:pre-wrap}
 
