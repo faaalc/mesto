@@ -2,6 +2,7 @@ export const BASE_URL = 'https://mesto.nomoreparties.co/v1/cohort-64/'
 export const TOKEN = '94314ba6-acbc-4ef4-a856-49bf0d843156'
 export const forms = document.querySelectorAll('.popup__form')
 export const gallery = document.querySelector('.gallery')
+export const main = document.querySelector('.main')
 export const popupEditElements = {
   openBtn: document.querySelector('.profile__edit-button'),
   nameInput: document.querySelector('.popup__input_type_name'),
@@ -18,7 +19,7 @@ export const popupAvatarElements = {
 }
 export const formValidationSettings = {
   inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
+  submitButtonSelector: '.popup__submit',
   inputErrorClass: 'popup__input_type_error'
 }
 export const basePopupConfig = {
@@ -26,5 +27,5 @@ export const basePopupConfig = {
   buttonCloseSelector: 'popup__close'
 }
 export const formValidators = {}
-export const popupInstances = {}
+export const popupWithFormInstances = {}
 export const cardsList = []

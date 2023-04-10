@@ -34,12 +34,12 @@ class PopupWithForm extends Popup {
     super.close()
   }
 
-  setLoading(isLoading, text) {
+  setLoading(isLoading, buttonText) {
     if (isLoading) {
-      this._buttonSubmit.textContent = text
+      this._buttonSubmit.textContent = buttonText
       this._buttonSubmit.disabled = true
     } else {
-      this._buttonSubmit.textContent = text
+      this._buttonSubmit.textContent = buttonText
       this._buttonSubmit.disabled = false
     }
   }

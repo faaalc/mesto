@@ -23,11 +23,11 @@ class Card {
     })
   {
     this.cardId = data._id
+    this._userId = userId
+    this._ownerId = data.owner._id
     this._name = data.name
     this._src = data.link
     this._likes = data.likes
-    this._ownerId = data.owner._id
-    this._userId = userId
     this._isLiked = false
 
     this._templateSelector = templateSelector
@@ -58,28 +58,31 @@ class Card {
     if (this._ownerId !== this._userId) {
       this._buttonDelete.classList.add('card__delete-button_hidden')
     }
-    if (this._isLikedByMe()) {
-      this._buttonLike.classList.add('card__like-button_active')
-      this._isLiked = true
-    }
+    this._toggleStateButtonLike()
 
     return this._element
   }
 
-  updateCard({likes, link, name}) {
-    this._name = name
-    this._src = link
+  toggleLike({ likes }) {
     this._likes = likes
-    this._updateLikes()
+    this._cardLikes.textContent = this._likes.length
+    this._toggleStateButtonLike()
+  }
+
+  toggleDisableButtonLike(isDisabled) {
+    this._buttonLike.disabled = isDisabled
+  }
+
+  _toggleStateButtonLike() {
+    this._isLiked = this._isLikedByMe()
+    this._isLiked
+      ? this._buttonLike.classList.add('card__like-button_active')
+      : this._buttonLike.classList.remove('card__like-button_active')
   }
 
   deleteCard() {
     this._element.remove()
     this._element = null
-  }
-
-  toggleButtonLikeState(isDisabled) {
-    this._buttonLike.disabled = isDisabled
   }
 
   _getTemplate() {
@@ -94,26 +97,20 @@ class Card {
     return this._likes.some(user => user._id === this._userId)
 }
 
-  _handleClickLikeButton() {
+  _handleClickButtonLike() {
     this._handleLikeCard(this.cardId, this._isLiked)
-    this._buttonLike.classList.toggle('card__like-button_active')
   }
 
-  _handleClickDeleteButton() {
+  _handleClickButtonDelete() {
     this._handleOpenConfirm(this.cardId)
-  }
-
-  _updateLikes() {
-    this._isLiked = this._isLikedByMe()
-    this._cardLikes.textContent = this._likes.length
   }
 
   _checkTarget = (e, element) => e.target === element
 
   _setListeners() {
     this._element.addEventListener('click', e => {
-      this._checkTarget(e, this._buttonLike) && this._handleClickLikeButton()
-      this._checkTarget(e, this._buttonDelete) && this._handleClickDeleteButton()
+      this._checkTarget(e, this._buttonLike) && this._handleClickButtonLike()
+      this._checkTarget(e, this._buttonDelete) && this._handleClickButtonDelete()
       this._handleImageClick && this._checkTarget(e, this._cardImage) && this._handleImageClick({
         name: this._name,
         link: this._src

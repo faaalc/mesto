@@ -1,4 +1,4 @@
-.popup__save {
+.popup__submit {
   padding: 14px 125px;
   background-color: #000000;
   color: var(--main-text-color);
@@ -10,11 +10,11 @@
   border-radius: 2px;
   transition: var(--transition-opacity), var(--transition-bgc);
 }
-.popup__save:hover {
+.popup__submit:hover {
   opacity: .8;
 }
 
-.popup__save:disabled {
+.popup__submit:disabled {
   background-color: transparent;
   color: #000000;
   border: 1px solid #000000;
@@ -22,7 +22,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .popup__save {
+  .popup__submit {
     padding: 14px 82px;
     font-size: 14px;
     line-height: 17px;

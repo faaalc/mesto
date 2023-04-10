@@ -5,6 +5,7 @@ import PopupWithForm from "../js/components/PopupWithForm.js";
 import UserInfo from "../js/components/UserInfo.js";
 import PopupWithImage from "../js/components/PopupWithImage.js";
 import Api from "../js/components/Api";
+import ErrorBlock from "../js/components/ErrorBlock";
 import {
   popupEditElements,
   popupAddElements,
@@ -13,9 +14,10 @@ import {
   forms,
   formValidators,
   formValidationSettings,
-  popupInstances,
+  popupWithFormInstances,
   basePopupConfig,
   gallery,
+  main,
   cardsList,
   BASE_URL,
   TOKEN,
@@ -30,7 +32,7 @@ const createCard = data => {
     templateSelector: '#card',
     handleImageClick: (data) => popupImageInstance.open(data),
     handleOpenConfirm: (id) => handleOpenPopupConfirm(id),
-    handleLikeCard: (id, isLiked) => handleLikeCard(id, isLiked),
+    handleLikeCard: (id, isLiked) => handleToggleLike(id, isLiked),
     userId: userInfo.getUserId()
   })
   cardsList.push(card)
@@ -44,9 +46,17 @@ const deleteCardFromArray = id => {
   cardsList.splice(index, 1)
 }
 
-//callbacks
-const handleOpenEditPopup = () => {
-  popupInstances['edit'].open()
+const createErrorBlock = text => {
+  const errorBlock = new ErrorBlock({
+    text,
+    templateSelector: '#error-block'
+  })
+  return errorBlock.generateBlock()
+}
+
+//Callbacks
+const handleOpenPopupEdit = () => {
+  popupWithFormInstances['edit'].open()
   const {name, about} = userInfo.getUserInfo()
   popupEditElements.nameInput.value = name
   popupEditElements.descriptionInput.value = about
@@ -54,31 +64,35 @@ const handleOpenEditPopup = () => {
   //checking the validity when opening
   formValidators['edit-description'].forceValidateForm()
 }
+const handleOpenPopupConfirm = id => {
+  popupWithFormInstances['confirm'].open()
+  popupConfirmElements.idInput.value = id
+}
 const handleSubmitPopupEdit = ({name, about}) => {
-  popupInstances['edit'].setLoading(true, 'Сохранение...')
+  popupWithFormInstances['edit'].setLoading(true, 'Сохранение...')
   api.updateUserInfo({name, about})
     .then(res => userInfo.setUserInfo(res))
     .catch(console.log)
     .finally(() => {
-      popupInstances['edit'].setLoading(false, 'Сохранить')
-      popupInstances['edit'].close()
+      popupWithFormInstances['edit'].setLoading(false, 'Сохранить')
+      popupWithFormInstances['edit'].close()
     })
 }
 const handleSubmitPopupAdd = ({place, link}) => {
-  popupInstances['add'].setLoading(true, 'Создание...')
+  popupWithFormInstances['add'].setLoading(true, 'Создание...')
   api.addCard({name: place, link})
     .then(card => {
       cardsSection.addItem(createCard(card))
     })
     .catch(console.log)
     .finally(() => {
-      popupInstances['add'].setLoading(false, 'Создать')
-      popupInstances['add'].close()
+      popupWithFormInstances['add'].setLoading(false, 'Создать')
+      popupWithFormInstances['add'].close()
+      formValidators['add-card'].disableSubmitButton()
     })
-  formValidators['add-card'].disableSubmitButton()
 }
 const handleSubmitPopupConfirm = ({id}) => {
-  popupInstances['confirm'].setLoading(true, 'Удаление...')
+  popupWithFormInstances['confirm'].setLoading(true, 'Удаление...')
   api.deleteCard(id)
     .then(() => {
       const card = findCard(id)
@@ -87,40 +101,37 @@ const handleSubmitPopupConfirm = ({id}) => {
     })
     .catch(console.log)
     .finally(() => {
-      popupInstances['confirm'].setLoading(false, 'Да')
-      popupInstances['confirm'].close()
+      popupWithFormInstances['confirm'].setLoading(false, 'Да')
+      popupWithFormInstances['confirm'].close()
     })
 }
-const handleOpenPopupConfirm = id => {
-  popupInstances['confirm'].open()
-  popupConfirmElements.idInput.value = id
-}
 const handleSubmitPopupAvatar = data => {
-  popupInstances['avatar'].setLoading(true, 'Сохранение...')
+  popupWithFormInstances['avatar'].setLoading(true, 'Сохранение...')
   api.updateAvatar(data)
     .then(res => {
       userInfo.setUserInfo(res)
     })
     .catch(console.log)
     .finally(() => {
-      popupInstances['avatar'].setLoading(false, 'Сохранить')
-      popupInstances['avatar'].close()
+      popupWithFormInstances['avatar'].setLoading(false, 'Сохранить')
+      popupWithFormInstances['avatar'].close()
       formValidators['change-avatar'].disableSubmitButton()
     })
 }
-const handleLikeCard = (id, isLiked) => {
+const handleToggleLike = (id, isLiked) => {
   const card = findCard(id)
-  card.toggleButtonLikeState(true)
+  card.toggleDisableButtonLike(true)
   api.toggleLike(id, isLiked ? 'DELETE' : 'PUT')
     .then(res => {
-      card.updateCard(res)
+      card.toggleLike(res)
     })
     .catch(console.log)
     .finally(() => {
-      card.toggleButtonLikeState(false)
+      card.toggleDisableButtonLike(false)
     })
 }
 
+//Instances
 const api = new Api({
   baseUrl: BASE_URL,
   headers: {
@@ -136,7 +147,10 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
       cardsSection.addItem(createCard(card))
     })
   })
-  .catch(console.log)
+  .catch(e => {
+    mainSection.clearSection()
+    mainSection.addItem(createErrorBlock(`Не удалось загрузить приложение\n${e}`))
+  })
 
 const userInfo = new UserInfo({
   userNameSelector: 'profile__name',
@@ -151,6 +165,7 @@ const cardsSection = new Section({
     cardsSection.addItem(createCard(data))
   }
 }, gallery)
+const mainSection = new Section({}, main)
 
 
 //Popups instances
@@ -186,7 +201,7 @@ const createPopupWithFormInstances = popups => {
       handleSubmit: popup.callback
     })
     instance.activateListeners()
-    popupInstances[popup.name] = instance
+    popupWithFormInstances[popup.name] = instance
   })
 }
 createPopupWithFormInstances(popupsWithForm)
@@ -202,9 +217,9 @@ const popupImageInstance = new PopupWithImage({
 popupImageInstance.activateListeners()
 
 
-popupEditElements.openBtn.addEventListener('click', handleOpenEditPopup)
-popupAddElements.openBtn.addEventListener('click', () => popupInstances['add'].open())
-popupAvatarElements.openBtn.addEventListener('click', () => popupInstances['avatar'].open())
+popupEditElements.openBtn.addEventListener('click', handleOpenPopupEdit)
+popupAddElements.openBtn.addEventListener('click', () => popupWithFormInstances['add'].open())
+popupAvatarElements.openBtn.addEventListener('click', () => popupWithFormInstances['avatar'].open())
 
 
 //Adding validation listeners on every form

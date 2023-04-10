@@ -61,7 +61,7 @@
           <span class="popup__input-error about-error"></span>
         </label>
 
-        <button class="button popup__save" type="submit" aria-label="Сохранить изменения">Сохранить</button>
+        <button class="button popup__submit" type="submit" aria-label="Сохранить изменения">Сохранить</button>
       </form>
       <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
@@ -97,7 +97,7 @@
           <span class="popup__input-error link-error"></span>
         </label>
 
-        <button class="button popup__save" type="submit" aria-label="Создать карточку" name="button">Создать</button>
+        <button class="button popup__submit" type="submit" aria-label="Создать карточку" name="button">Создать</button>
       </form>
       <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
@@ -121,7 +121,7 @@
             autocomplete="off">
         <h2 class="popup__title">Вы уверены?</h2>
         <input type="hidden" name="id" class="popup__input_type_card-id">
-        <button class="button popup__save no-margin" type="submit" aria-label="Удалить карточку" name="button">Да</button>
+        <button class="button popup__submit popup__submit_confirm" type="submit" aria-label="Удалить карточку" name="button">Да</button>
       </form>
       <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
@@ -144,7 +144,7 @@
                  required>
           <span class="popup__input-error avatar-error"></span>
         </label>
-        <button class="button popup__save" type="submit" aria-label="Сохранить аватарку" name="button">Сохранить</button>
+        <button class="button popup__submit" type="submit" aria-label="Сохранить аватарку" name="button">Сохранить</button>
       </form>
       <button class="button popup__close" type="button" aria-label="Закрыть модальное окно"></button>
     </div>
@@ -161,6 +161,11 @@
         </div>
       </div>
       <button class="button card__delete-button" type="button" aria-label="Удалить пост"></button>
+    </div>
+  </template>
+  <template id="error-block">
+    <div class="error-block">
+      <h2 class="error-block__title"></h2>
     </div>
   </template>
 </body>
