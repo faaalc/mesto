@@ -71,11 +71,13 @@ const handleOpenPopupConfirm = id => {
 const handleSubmitPopupEdit = ({name, about}) => {
   popupWithFormInstances['edit'].setLoading(true, 'Сохранение...')
   api.updateUserInfo({name, about})
-    .then(res => userInfo.setUserInfo(res))
+    .then(res => {
+      userInfo.setUserInfo(res)
+      popupWithFormInstances['edit'].close()
+    })
     .catch(console.log)
     .finally(() => {
       popupWithFormInstances['edit'].setLoading(false, 'Сохранить')
-      popupWithFormInstances['edit'].close()
     })
 }
 const handleSubmitPopupAdd = ({place, link}) => {
@@ -83,12 +85,12 @@ const handleSubmitPopupAdd = ({place, link}) => {
   api.addCard({name: place, link})
     .then(card => {
       cardsSection.addItem(createCard(card))
+      popupWithFormInstances['add'].close()
+      formValidators['add-card'].disableSubmitButton()
     })
     .catch(console.log)
     .finally(() => {
       popupWithFormInstances['add'].setLoading(false, 'Создать')
-      popupWithFormInstances['add'].close()
-      formValidators['add-card'].disableSubmitButton()
     })
 }
 const handleSubmitPopupConfirm = ({id}) => {
@@ -98,11 +100,11 @@ const handleSubmitPopupConfirm = ({id}) => {
       const card = findCard(id)
       card.deleteCard()
       deleteCardFromArray(id)
+      popupWithFormInstances['confirm'].close()
     })
     .catch(console.log)
     .finally(() => {
       popupWithFormInstances['confirm'].setLoading(false, 'Да')
-      popupWithFormInstances['confirm'].close()
     })
 }
 const handleSubmitPopupAvatar = data => {
@@ -110,12 +112,12 @@ const handleSubmitPopupAvatar = data => {
   api.updateAvatar(data)
     .then(res => {
       userInfo.setUserInfo(res)
+      popupWithFormInstances['avatar'].close()
+      formValidators['change-avatar'].disableSubmitButton()
     })
     .catch(console.log)
     .finally(() => {
       popupWithFormInstances['avatar'].setLoading(false, 'Сохранить')
-      popupWithFormInstances['avatar'].close()
-      formValidators['change-avatar'].disableSubmitButton()
     })
 }
 const handleToggleLike = (id, isLiked) => {
@@ -141,8 +143,8 @@ const api = new Api({
 })
 
 Promise.all([api.getInitialCards(), api.getUserInfo()])
-  .then(([cards, info]) => {
-    userInfo.setUserInfo(info)
+  .then(([cards, {name, about, avatar, _id}]) => {
+    userInfo.setUserInfo({name, about, avatar, _id})
     cards.reverse().forEach(card => {
       cardsSection.addItem(createCard(card))
     })
