@@ -11,9 +11,6 @@ export const popupEditElements = {
 export const popupAddElements = {
   openBtn: document.querySelector('.profile__add-button')
 }
-export const popupConfirmElements = {
-  idInput: document.querySelector('.popup__input_type_card-id')
-}
 export const popupAvatarElements = {
   openBtn: document.querySelector('.profile__avatar-container')
 }
@@ -28,4 +25,3 @@ export const basePopupConfig = {
 }
 export const formValidators = {}
 export const popupWithFormInstances = {}
-export const cardsList = []

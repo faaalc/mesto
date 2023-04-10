@@ -1,15 +1,15 @@
 import Card from "../js/components/Card.js";
-import FormValidator from "../js/components/FormValidator.js";
-import Section from "../js/components/Section.js";
-import PopupWithForm from "../js/components/PopupWithForm.js";
-import UserInfo from "../js/components/UserInfo.js";
-import PopupWithImage from "../js/components/PopupWithImage.js";
-import Api from "../js/components/Api";
 import ErrorBlock from "../js/components/ErrorBlock";
+import Section from "../js/components/Section.js";
+import UserInfo from "../js/components/UserInfo.js";
+import FormValidator from "../js/components/FormValidator.js";
+import PopupWithForm from "../js/components/PopupWithForm.js";
+import PopupWithImage from "../js/components/PopupWithImage.js";
+import PopupWithConfirm from "../js/components/PopupWithConfirm";
+import Api from "../js/components/Api";
 import {
   popupEditElements,
   popupAddElements,
-  popupConfirmElements,
   popupAvatarElements,
   forms,
   formValidators,
@@ -18,7 +18,6 @@ import {
   basePopupConfig,
   gallery,
   main,
-  cardsList,
   BASE_URL,
   TOKEN,
 }
@@ -31,21 +30,12 @@ const createCard = data => {
     data,
     templateSelector: '#card',
     handleImageClick: (data) => popupImageInstance.open(data),
-    handleOpenConfirm: (id) => handleOpenPopupConfirm(id),
-    handleLikeCard: (id, isLiked) => handleToggleLike(id, isLiked),
+    handleOpenConfirm: (id) => popupWithConfirm.open(id, card),
+    handleLikeCard: (id, isLiked) => handleToggleLike(id, isLiked, card),
     userId: userInfo.getUserId()
   })
-  cardsList.push(card)
   return card.generateCard()
 }
-const findCard = id => {
-  return cardsList.find(card => card.cardId === id)
-}
-const deleteCardFromArray = id => {
-  const index = cardsList.findIndex(card => card.cardId === id)
-  cardsList.splice(index, 1)
-}
-
 const createErrorBlock = text => {
   const errorBlock = new ErrorBlock({
     text,
@@ -63,10 +53,6 @@ const handleOpenPopupEdit = () => {
 
   //checking the validity when opening
   formValidators['edit-description'].forceValidateForm()
-}
-const handleOpenPopupConfirm = id => {
-  popupWithFormInstances['confirm'].open()
-  popupConfirmElements.idInput.value = id
 }
 const handleSubmitPopupEdit = ({name, about}) => {
   popupWithFormInstances['edit'].setLoading(true, 'Сохранение...')
@@ -93,18 +79,16 @@ const handleSubmitPopupAdd = ({place, link}) => {
       popupWithFormInstances['add'].setLoading(false, 'Создать')
     })
 }
-const handleSubmitPopupConfirm = ({id}) => {
-  popupWithFormInstances['confirm'].setLoading(true, 'Удаление...')
+const handleSubmitPopupConfirm = (id, card) => {
+  popupWithConfirm.setLoading(true, 'Удаление...')
   api.deleteCard(id)
     .then(() => {
-      const card = findCard(id)
       card.deleteCard()
-      deleteCardFromArray(id)
-      popupWithFormInstances['confirm'].close()
+      popupWithConfirm.close()
     })
     .catch(console.log)
     .finally(() => {
-      popupWithFormInstances['confirm'].setLoading(false, 'Да')
+      popupWithConfirm.setLoading(false, 'Да')
     })
 }
 const handleSubmitPopupAvatar = data => {
@@ -120,8 +104,7 @@ const handleSubmitPopupAvatar = data => {
       popupWithFormInstances['avatar'].setLoading(false, 'Сохранить')
     })
 }
-const handleToggleLike = (id, isLiked) => {
-  const card = findCard(id)
+const handleToggleLike = (id, isLiked, card) => {
   card.toggleDisableButtonLike(true)
   api.toggleLike(id, isLiked ? 'DELETE' : 'PUT')
     .then(res => {
@@ -183,11 +166,6 @@ const popupsWithForm = [
     callback: handleSubmitPopupAdd
   },
   {
-    name: 'confirm',
-    selector: 'popup_type_confirm-delete',
-    callback: handleSubmitPopupConfirm
-  },
-  {
     name: 'avatar',
     selector: 'popup_type_avatar',
     callback: handleSubmitPopupAvatar
@@ -217,6 +195,15 @@ const popupImageInstance = new PopupWithImage({
   locationSelector: 'popup__location'
 })
 popupImageInstance.activateListeners()
+
+const popupWithConfirm = new PopupWithConfirm({
+  baseConfig: {
+    ...basePopupConfig,
+    popupSelector: 'popup_type_confirm-delete'
+  },
+  handleSubmit: handleSubmitPopupConfirm
+})
+popupWithConfirm.activateListeners()
 
 
 popupEditElements.openBtn.addEventListener('click', handleOpenPopupEdit)
