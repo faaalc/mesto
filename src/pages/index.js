@@ -54,6 +54,14 @@ const handleOpenPopupEdit = () => {
   //checking the validity when opening
   formValidators['edit-description'].forceValidateForm()
 }
+const handleOpenPopupAdd = () => {
+  popupWithFormInstances['add'].open()
+  formValidators['add-card'].disableSubmitButton()
+}
+const handleOpenPopupAvatar = () => {
+  popupWithFormInstances['avatar'].open()
+  formValidators['change-avatar'].disableSubmitButton()
+}
 const handleSubmitPopupEdit = ({name, about}) => {
   popupWithFormInstances['edit'].setLoading(true, 'Сохранение...')
   api.updateUserInfo({name, about})
@@ -72,7 +80,6 @@ const handleSubmitPopupAdd = ({place, link}) => {
     .then(card => {
       cardsSection.addItem(createCard(card))
       popupWithFormInstances['add'].close()
-      formValidators['add-card'].disableSubmitButton()
     })
     .catch(console.log)
     .finally(() => {
@@ -97,7 +104,6 @@ const handleSubmitPopupAvatar = data => {
     .then(res => {
       userInfo.setUserInfo(res)
       popupWithFormInstances['avatar'].close()
-      formValidators['change-avatar'].disableSubmitButton()
     })
     .catch(console.log)
     .finally(() => {
@@ -207,8 +213,8 @@ popupWithConfirm.activateListeners()
 
 
 popupEditElements.openBtn.addEventListener('click', handleOpenPopupEdit)
-popupAddElements.openBtn.addEventListener('click', () => popupWithFormInstances['add'].open())
-popupAvatarElements.openBtn.addEventListener('click', () => popupWithFormInstances['avatar'].open())
+popupAddElements.openBtn.addEventListener('click', handleOpenPopupAdd)
+popupAvatarElements.openBtn.addEventListener('click', handleOpenPopupAvatar)
 
 
 //Adding validation listeners on every form
