@@ -10,8 +10,8 @@ class PopupWithImage extends Popup {
    */
   constructor({baseConfig, imageSelector, locationSelector}) {
     super(baseConfig);
-    this._image = document.querySelector(`.${imageSelector}`)
-    this._location = document.querySelector(`.${locationSelector}`)
+    this._image = this._popup.querySelector(`.${imageSelector}`)
+    this._location = this._popup.querySelector(`.${locationSelector}`)
   }
 
   /**

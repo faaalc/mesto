@@ -5,12 +5,10 @@
 class Section {
   /**
    * @param {Object} [options] Options
-   * @param {Array} [options.items] Array of data for render
    * @param {Function} [options.renderer] Callback render function
    * @param {HTMLElement} container Container to render items in
    */
-  constructor({items, renderer}, container) {
-    this._items = items
+  constructor({renderer}, container) {
     this._renderer = renderer
     this._container = container
   }
@@ -18,8 +16,8 @@ class Section {
   /**
    * Activates renderer function, renders data to the passed container
    */
-  render = () => {
-    this._items.forEach(item => {
+  render = (items) => {
+    items.forEach(item => {
       this._renderer(item)
     })
   }

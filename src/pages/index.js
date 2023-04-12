@@ -134,9 +134,7 @@ const api = new Api({
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([cards, {name, about, avatar, _id}]) => {
     userInfo.setUserInfo({name, about, avatar, _id})
-    cards.reverse().forEach(card => {
-      cardsSection.addItem(createCard(card))
-    })
+    cardsSection.render(cards.reverse())
   })
   .catch(e => {
     mainSection.clearSection()
@@ -151,7 +149,6 @@ const userInfo = new UserInfo({
 
 //Creating instance for cards section
 const cardsSection = new Section({
-  items: [],
   renderer: (data) => {
     cardsSection.addItem(createCard(data))
   }
