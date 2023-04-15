@@ -22,7 +22,7 @@ class Card {
     handleLikeCard
     })
   {
-    this.cardId = data._id
+    this._cardId = data._id
     this._userId = userId
     this._ownerId = data.owner._id
     this._name = data.name
@@ -110,11 +110,11 @@ class Card {
 }
 
   _handleClickButtonLike() {
-    this._handleLikeCard(this.cardId, this._isLiked)
+    this._handleLikeCard(this._cardId, this._isLiked)
   }
 
   _handleClickButtonDelete() {
-    this._handleOpenConfirm(this.cardId)
+    this._handleOpenConfirm(this._cardId)
   }
 
   _checkTarget = (e, element) => e.target === element
